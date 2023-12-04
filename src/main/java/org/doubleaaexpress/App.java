@@ -5,6 +5,7 @@ import org.doubleaaexpress.controllers.MainController;
 import org.doubleaaexpress.controllers.SignInController;
 import org.doubleaaexpress.controllers.forms.AdministratorFormController;
 import org.doubleaaexpress.controllers.forms.CustomerFormController;
+import org.doubleaaexpress.controllers.forms.MotorcycleFormController;
 import org.doubleaaexpress.models.*;
 import org.doubleaaexpress.views.AdministratorMainView;
 import org.doubleaaexpress.views.MainView;
@@ -14,42 +15,54 @@ import org.doubleaaexpress.views.tables.RegisteredAdministratorsTableView;
 
 public class App {
 
-    public static void main(String[] args) {
-        // models
-        Administrator administrator = new Administrator();
-        Buyer buyer = new Buyer();
-        Customer customer = new Customer();
-        Mechanic mechanic = new Mechanic();
-        Seller seller = new Seller();
+        public static void main(String[] args) {
 
-        // views
-        MainView mainView = new MainView();
-        SignInView signInView = new SignInView();
-        AdministratorFormView administratorFormView = new AdministratorFormView();
-        BuyerFormView buyerFormView = new BuyerFormView();
-        CustomerFormView customerFormView = new CustomerFormView();
-        MechanicFormView mechanicFormView = new MechanicFormView();
-        SellerFormView sellerFormView = new SellerFormView();
-        RegisteredAdministratorsTableView registeredAdministratorsTableView = new RegisteredAdministratorsTableView();
-        AdministratorMainView administratorMainView = new AdministratorMainView();
-        RegisteredUsersView registeredUsersView = new RegisteredUsersView();
+                // models
+                Administrator administrator = new Administrator();
+                Buyer buyer = new Buyer();
+                Customer customer = new Customer();
+                Mechanic mechanic = new Mechanic();
+                Seller seller = new Seller();
+                Motorcycle motrocycle = new Motorcycle();
 
-        // controllers
-        AdministratorFormController administratorFormController = new AdministratorFormController(administrator,
-                mainView, administratorFormView, registeredAdministratorsTableView);
+                // views
+                MainView mainView = new MainView();
+                SignInView signInView = new SignInView();
+                AdministratorFormView administratorFormView = new AdministratorFormView();
+                BuyerFormView buyerFormView = new BuyerFormView();
+                CustomerFormView customerFormView = new CustomerFormView();
+                MechanicFormView mechanicFormView = new MechanicFormView();
+                SellerFormView sellerFormView = new SellerFormView();
+                MotorcycleFormView motorcycleFormView = new MotorcycleFormView();
+                RegisteredAdministratorsTableView registeredAdministratorsTableView = new RegisteredAdministratorsTableView();
+                AdministratorMainView administratorMainView = new AdministratorMainView();
+                RegisteredUsersView registeredUsersView = new RegisteredUsersView();
 
-        CustomerFormController customerFormController = new CustomerFormController(customer, mainView, customerFormView);
+                // controllers
+                AdministratorFormController administratorFormController = new AdministratorFormController(administrator,
+                                mainView, administratorFormView, registeredAdministratorsTableView);
 
-        SignInController signInController = new SignInController(administrator, customer, mainView, signInView, administratorMainView);
+                CustomerFormController customerFormController = new CustomerFormController(customer, mainView,
+                                customerFormView);
 
-        AdministratorMainController administratorMainController = new AdministratorMainController(administrator,
-                mainView, administratorMainView, registeredAdministratorsTableView, registeredUsersView);
+                SignInController signInController = new SignInController(administrator, customer, mainView, signInView,
+                                administratorMainView);
 
-        MainController mainController = new MainController(administrator, buyer, customer, mechanic, seller, mainView,
-                signInView, administratorFormView, buyerFormView, customerFormView, mechanicFormView,
-                sellerFormView, registeredAdministratorsTableView, administratorMainView, registeredUsersView,
-                administratorFormController, customerFormController, signInController, administratorMainController);
+                AdministratorMainController administratorMainController = new AdministratorMainController(administrator,
+                                mainView, administratorMainView, registeredAdministratorsTableView,
+                                registeredUsersView);
 
-        mainController.showMainView();
-    }
+                MotorcycleFormController motorcycleFormController = new MotorcycleFormController(administrator,
+                                motrocycle, administratorMainView, motorcycleFormView);
+
+                MainController mainController = new MainController(administrator, buyer, customer, mechanic, seller,
+                                mainView,
+                                signInView, administratorFormView, buyerFormView, customerFormView, mechanicFormView,
+                                sellerFormView, motorcycleFormView, registeredAdministratorsTableView,
+                                administratorMainView, registeredUsersView, administratorFormController,
+                                customerFormController, signInController,
+                                administratorMainController, motorcycleFormController);
+
+                mainController.showMainView();
+        }
 }

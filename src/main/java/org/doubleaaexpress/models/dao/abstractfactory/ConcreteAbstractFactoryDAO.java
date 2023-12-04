@@ -19,12 +19,12 @@ public class ConcreteAbstractFactoryDAO extends AbstractFactoryDAO {
      * @return an instance of the AdministratorDAO class.
      */
     @Override
-    public GenericDAO<Administrator> getAdministratorDAO() {
+    public GenericUserDAO<Administrator> getAdministratorDAO() {
         return new AdministratorDAO();
     }
 
     @Override
-    public GenericDAO<Customer> getCustomerDAO() {
+    public GenericUserDAO<Customer> getCustomerDAO() {
         return new CustomerDAO();
     }
 }

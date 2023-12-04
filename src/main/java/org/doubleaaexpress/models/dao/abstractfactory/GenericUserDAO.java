@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @param <T> the type of the object this DAO will manage
  */
-public interface GenericDAO<T> {
+public interface GenericUserDAO<T> {
 
     void add(T t);
 

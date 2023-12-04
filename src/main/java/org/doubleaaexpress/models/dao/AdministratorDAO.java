@@ -11,11 +11,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import org.doubleaaexpress.models.Administrator;
-import org.doubleaaexpress.models.dao.abstractfactory.GenericDAO;
+import org.doubleaaexpress.models.dao.abstractfactory.GenericUserDAO;
 import org.doubleaaexpress.models.dao.iterator.AdministratorIterator;
 import org.doubleaaexpress.util.DBConnection;
 
-public class AdministratorDAO implements GenericDAO<Administrator> {
+public class AdministratorDAO implements GenericUserDAO<Administrator> {
 
     private Connection connection = DBConnection.getInstance().getConnection();
 

@@ -93,7 +93,7 @@ public class MotorcycleDAO {
         }
     }
 
-    public List<Motorcycle> getAllMotorcycles() {
+    public List<Motorcycle> getAll() {
         PreparedStatement preparedStatement;
         String sql = "SELECT * FROM motorcycles";
         ResultSet resultSet;

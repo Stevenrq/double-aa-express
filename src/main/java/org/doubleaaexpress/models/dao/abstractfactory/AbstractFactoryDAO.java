@@ -17,7 +17,8 @@ public abstract class AbstractFactoryDAO {
      * @return An instance of GenericDAO for the
      *         Administrator class.
      */
-    public abstract GenericDAO<Administrator> getAdministratorDAO();
+    public abstract GenericUserDAO<Administrator> getAdministratorDAO();
 
-    public abstract GenericDAO<Customer> getCustomerDAO();
+
+    public abstract GenericUserDAO<Customer> getCustomerDAO();
 }

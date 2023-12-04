@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import org.doubleaaexpress.models.Customer;
 import org.doubleaaexpress.models.dao.abstractfactory.AbstractFactoryDAO;
 import org.doubleaaexpress.models.dao.abstractfactory.ConcreteAbstractFactoryDAO;
-import org.doubleaaexpress.models.dao.abstractfactory.GenericDAO;
+import org.doubleaaexpress.models.dao.abstractfactory.GenericUserDAO;
 import org.doubleaaexpress.views.MainView;
 import org.doubleaaexpress.views.forms.CustomerFormView;
 
@@ -45,7 +45,7 @@ public class CustomerFormController {
         // create a factory DAOs
         AbstractFactoryDAO abstractFactoryDAO = new ConcreteAbstractFactoryDAO();
         // get a DAO for Customer
-        GenericDAO<Customer> customerDAO = abstractFactoryDAO.getCustomerDAO();
+        GenericUserDAO<Customer> customerDAO = abstractFactoryDAO.getCustomerDAO();
 
         if (emptyFields()) {
             v = false;

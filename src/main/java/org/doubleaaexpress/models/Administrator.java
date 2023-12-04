@@ -22,7 +22,7 @@ public class Administrator extends User {
     /**
      * Populates the administrator table with data from the database.
      *
-     * @param table The JTable to be populated
+     * @param table The table to be populated
      */
     public void populateAdministratorTable(JTable table) {
         DefaultTableModel model = new DefaultTableModel();

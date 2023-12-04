@@ -25,18 +25,19 @@ public class AdministratorMainController {
     private RegisteredUsersView registeredUsersView;
 
     public AdministratorMainController(Administrator administrator, MainView mainView,
-                                       AdministratorMainView administratorMainView,
-                                       RegisteredAdministratorsTableView registeredAdministratorsTableView,
-                                       RegisteredUsersView registeredUsersView) {
-        this.administrator = administrator;
+            AdministratorMainView administratorMainView,
+            RegisteredAdministratorsTableView registeredAdministratorsTableView,
+            RegisteredUsersView registeredUsersView) {
 
+        this.administrator = administrator;
         this.mainView = mainView;
         this.administratorMainView = administratorMainView;
         this.registeredAdministratorsTableView = registeredAdministratorsTableView;
         this.registeredUsersView = registeredUsersView;
 
         // populates the table when starting the application
-        this.administrator.populateAdministratorTable(getRegisteredAdministratorsTableView().gettRegisteredAdministrators());
+        this.administrator
+                .populateAdministratorTable(getRegisteredAdministratorsTableView().gettRegisteredAdministrators());
     }
 
     public void showRegisteredUsersTables() {

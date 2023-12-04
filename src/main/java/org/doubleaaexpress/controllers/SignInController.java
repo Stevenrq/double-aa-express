@@ -7,7 +7,7 @@ import org.doubleaaexpress.models.Administrator;
 import org.doubleaaexpress.models.Customer;
 import org.doubleaaexpress.models.dao.abstractfactory.AbstractFactoryDAO;
 import org.doubleaaexpress.models.dao.abstractfactory.ConcreteAbstractFactoryDAO;
-import org.doubleaaexpress.models.dao.abstractfactory.GenericDAO;
+import org.doubleaaexpress.models.dao.abstractfactory.GenericUserDAO;
 import org.doubleaaexpress.views.AdministratorMainView;
 import org.doubleaaexpress.views.MainView;
 import org.doubleaaexpress.views.forms.SignInView;
@@ -38,7 +38,7 @@ public class SignInController {
         String email = getSignInView().getTfEmail().getText();
         String password = new String(getSignInView().getTfPassword().getPassword());
         AbstractFactoryDAO abstractFactoryDAO = new ConcreteAbstractFactoryDAO();
-        GenericDAO<Administrator> administratorDAO = abstractFactoryDAO.getAdministratorDAO();
+        GenericUserDAO<Administrator> administratorDAO = abstractFactoryDAO.getAdministratorDAO();
 
         if (administratorDAO.get(email, password)) {
             getSignInView().setVisible(false);
