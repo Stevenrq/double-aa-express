@@ -17,7 +17,7 @@ import org.doubleaaexpress.util.DBConnection;
 
 public class AdministratorDAO implements GenericUserDAO<Administrator> {
 
-    private Connection connection = DBConnection.getInstance().getConnection();
+    private final Connection connection = DBConnection.getInstance().getConnection();
 
     @Override
     public void add(Administrator administrator) {
@@ -58,7 +58,6 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
                 administrator.setPhoneNumber(resultSet.getString("phone_number"));
                 administrator.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 administrator.setEmail(resultSet.getString("email"));
-                administrator.setPassword(resultSet.getString("password"));
             } else
                 JOptionPane.showMessageDialog(null, "The administrator is not registered");
         } catch (SQLException e) {
@@ -89,7 +88,6 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
                 administrator.setPassword(resultSet.getString("password"));
                 return true;
             } else {
-                JOptionPane.showMessageDialog(null, "The administrator is not registered");
                 return false;
             }
         } catch (SQLException e) {
@@ -114,7 +112,7 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
             ps.setString(6, administrator.getPassword());
             ps.setLong(7, administrator.getId());
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error updating administrator: " + e.getMessage());
         }
     }
@@ -157,7 +155,7 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
             }
             while (iterator.hasNext()) {
                 Administrator administrator = iterator.next();
-                System.out.println(administrator.getFirstName() + " " + administrator.getLastName());
+                // System.out.println(administrator.getFirstName() + " " + administrator.getLastName());
             }
         } catch (SQLException e) {
             System.out.println("Error getting all administrators: " + e.getMessage());
@@ -194,7 +192,7 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
                 return false;
             }
         } catch (SQLException e) {
-            System.out.println("failed to login: " + e.getMessage());
+            System.out.println("failed to sign in: " + e.getMessage());
             return false;
         }
     }

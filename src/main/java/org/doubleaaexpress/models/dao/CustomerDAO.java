@@ -16,7 +16,7 @@ import org.doubleaaexpress.util.DBConnection;
 
 public class CustomerDAO implements GenericUserDAO<Customer> {
 
-    private Connection connection = DBConnection.getInstance().getConnection();
+    private final Connection connection = DBConnection.getInstance().getConnection();
 
     @Override
     public void add(Customer customer) {
@@ -188,7 +188,6 @@ public class CustomerDAO implements GenericUserDAO<Customer> {
                 customer.setPassword(resultSet.getString("password"));
                 return true;
             } else {
-                JOptionPane.showMessageDialog(null, "The customer is not registered");
                 return false;
             }
         } catch (SQLException e) {

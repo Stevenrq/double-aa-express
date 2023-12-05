@@ -10,7 +10,7 @@ import java.util.List;
 
 public class MechanicDAO {
 
-    private Connection connection = DBConnection.getInstance().getConnection();
+    private final Connection connection = DBConnection.getInstance().getConnection();
 
     public void addMechanic(Mechanic mechanic) {
         PreparedStatement preparedStatement;

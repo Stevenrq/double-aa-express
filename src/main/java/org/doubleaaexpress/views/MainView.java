@@ -32,14 +32,15 @@ public class MainView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        bSignIn = new JButton();
+        bSignIn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        mSignUp = new JMenu();
-        miRegisterAdministrator = new JMenuItem();
-        miRegisterBuyer = new JMenuItem();
-        miRegisterSeller = new JMenuItem();
-        miRegisterCustomer = new JMenuItem();
-        miRegisterMechanic = new JMenuItem();
+        mSignUp = new javax.swing.JMenu();
+        miRegisterAdministrator = new javax.swing.JMenuItem();
+        miRegisterOrderManager = new javax.swing.JMenuItem();
+        miRegisterCustomer = new javax.swing.JMenuItem();
+        miRegisterBuyer = new javax.swing.JMenuItem();
+        miRegisterSeller = new javax.swing.JMenuItem();
+        miRegisterMechanic = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main View");
@@ -83,14 +84,17 @@ public class MainView extends javax.swing.JFrame {
         miRegisterAdministrator.setText("Register as Administrator");
         mSignUp.add(miRegisterAdministrator);
 
+        miRegisterOrderManager.setText("Register as Order Manager");
+        mSignUp.add(miRegisterOrderManager);
+
+        miRegisterCustomer.setText("Register as Customer");
+        mSignUp.add(miRegisterCustomer);
+
         miRegisterBuyer.setText("Register as Buyer");
         mSignUp.add(miRegisterBuyer);
 
         miRegisterSeller.setText("Register as Seller");
         mSignUp.add(miRegisterSeller);
-
-        miRegisterCustomer.setText("Register as Customer");
-        mSignUp.add(miRegisterCustomer);
 
         miRegisterMechanic.setText("Register as Mechanic");
         mSignUp.add(miRegisterMechanic);
@@ -211,16 +215,25 @@ public class MainView extends javax.swing.JFrame {
         this.miRegisterSeller = miRegisterSeller;
     }
 
+    public JMenuItem getMiRegisterOrderManager() {
+        return miRegisterOrderManager;
+    }
+
+    public void setMiRegisterOrderManager(JMenuItem miRegisterOrderManager) {
+        this.miRegisterOrderManager = miRegisterOrderManager;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton bSignIn;
+    private javax.swing.JButton bSignIn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private JMenu mSignUp;
-    private JMenuItem miRegisterAdministrator;
-    private JMenuItem miRegisterBuyer;
-    private JMenuItem miRegisterCustomer;
-    private JMenuItem miRegisterMechanic;
-    private JMenuItem miRegisterSeller;
+    private javax.swing.JMenu mSignUp;
+    private javax.swing.JMenuItem miRegisterAdministrator;
+    private javax.swing.JMenuItem miRegisterBuyer;
+    private javax.swing.JMenuItem miRegisterCustomer;
+    private javax.swing.JMenuItem miRegisterMechanic;
+    private javax.swing.JMenuItem miRegisterOrderManager;
+    private javax.swing.JMenuItem miRegisterSeller;
     // End of variables declaration//GEN-END:variables
 }

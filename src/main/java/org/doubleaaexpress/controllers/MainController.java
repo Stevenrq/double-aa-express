@@ -3,13 +3,15 @@ package org.doubleaaexpress.controllers;
 import org.doubleaaexpress.controllers.forms.AdministratorFormController;
 import org.doubleaaexpress.controllers.forms.CustomerFormController;
 import org.doubleaaexpress.controllers.forms.MotorcycleFormController;
+import org.doubleaaexpress.controllers.forms.OrderManagerFormController;
 import org.doubleaaexpress.models.Administrator;
 import org.doubleaaexpress.models.Buyer;
 import org.doubleaaexpress.models.Customer;
 import org.doubleaaexpress.models.Mechanic;
-import org.doubleaaexpress.models.Motorcycle;
+import org.doubleaaexpress.models.OrderManager;
 import org.doubleaaexpress.models.Seller;
 import org.doubleaaexpress.views.AdministratorMainView;
+import org.doubleaaexpress.views.CustomerMainView;
 import org.doubleaaexpress.views.MainView;
 import org.doubleaaexpress.views.RegisteredUsersView;
 import org.doubleaaexpress.views.forms.AdministratorFormView;
@@ -19,6 +21,7 @@ import org.doubleaaexpress.views.forms.SignInView;
 import org.doubleaaexpress.views.tables.RegisteredAdministratorsTableView;
 import org.doubleaaexpress.views.forms.MechanicFormView;
 import org.doubleaaexpress.views.forms.MotorcycleFormView;
+import org.doubleaaexpress.views.forms.OrderManagerFormView;
 import org.doubleaaexpress.views.forms.SellerFormView;
 
 import lombok.Getter;
@@ -34,6 +37,7 @@ import java.awt.event.ActionListener;
 public class MainController implements ActionListener {
 
     private Administrator administrator;
+    private OrderManager orderManager;
     private Buyer buyer;
     private Customer customer;
     private Mechanic mechanic;
@@ -47,8 +51,10 @@ public class MainController implements ActionListener {
     private MechanicFormView mechanicFormView;
     private SellerFormView sellerFormView;
     private MotorcycleFormView motorcycleFormView;
+    private OrderManagerFormView orderManagerFormView;
     private RegisteredAdministratorsTableView registeredAdministratorsTableView;
     private AdministratorMainView administratorMainView;
+    private CustomerMainView customerMainView;
     private RegisteredUsersView registeredUsersView;
 
     private AdministratorFormController administratorFormController;
@@ -56,19 +62,25 @@ public class MainController implements ActionListener {
     private SignInController signInController;
     private AdministratorMainController administratorMainController;
     private MotorcycleFormController motorcycleFormController;
+    private OrderManagerFormController orderManagerFormController;
+    private CustomerMainController customerMainController;
 
-    public MainController(Administrator administrator, Buyer buyer, Customer customer, Mechanic mechanic,
-            Seller seller, MainView mainView, SignInView signInView, AdministratorFormView administratorFormView,
-            BuyerFormView buyerFormView, CustomerFormView customerFormView, MechanicFormView mechanicFormView,
-            SellerFormView sellerFormView, MotorcycleFormView motorcycleFormView,
-            RegisteredAdministratorsTableView registeredAdministratorsTableView,
-            AdministratorMainView administratorMainView, RegisteredUsersView registeredUsersView,
-            AdministratorFormController administratorFormController,
-            CustomerFormController customerFormController, SignInController signInController,
-            AdministratorMainController administratorMainController,
-            MotorcycleFormController motorcycleFormController) {
+    public MainController(Administrator administrator, OrderManager orderManager, Buyer buyer, Customer customer,
+                          Mechanic mechanic, Seller seller, MainView mainView, SignInView signInView,
+                          AdministratorFormView administratorFormView,
+                          BuyerFormView buyerFormView, CustomerFormView customerFormView, MechanicFormView mechanicFormView,
+                          SellerFormView sellerFormView, MotorcycleFormView motorcycleFormView,
+                          OrderManagerFormView orderManagerFormView,
+                          RegisteredAdministratorsTableView registeredAdministratorsTableView,
+                          AdministratorMainView administratorMainView, CustomerMainView customerMainView, RegisteredUsersView registeredUsersView,
+                          AdministratorFormController administratorFormController,
+                          CustomerFormController customerFormController, SignInController signInController,
+                          AdministratorMainController administratorMainController,
+                          MotorcycleFormController motorcycleFormController, OrderManagerFormController orderManagerFormController,
+                          CustomerMainController customerMainController) {
 
         this.administrator = administrator;
+        this.orderManager = orderManager;
         this.buyer = buyer;
         this.customer = customer;
         this.mechanic = mechanic;
@@ -81,19 +93,24 @@ public class MainController implements ActionListener {
         this.mechanicFormView = mechanicFormView;
         this.sellerFormView = sellerFormView;
         this.motorcycleFormView = motorcycleFormView;
+        this.orderManagerFormView = orderManagerFormView;
         this.registeredAdministratorsTableView = registeredAdministratorsTableView;
         this.administratorFormController = administratorFormController;
         this.customerFormController = customerFormController;
         this.signInController = signInController;
         this.administratorMainView = administratorMainView;
+        this.customerMainView = customerMainView;
         this.registeredUsersView = registeredUsersView;
         this.administratorMainController = administratorMainController;
         this.motorcycleFormController = motorcycleFormController;
+        this.orderManagerFormController = orderManagerFormController;
+        this.customerMainController = customerMainController;
 
         // main view
         this.mainView.getbSignIn().addActionListener(this);
         this.mainView.getmSignUp().addActionListener(this);
         this.mainView.getMiRegisterAdministrator().addActionListener(this);
+        this.mainView.getMiRegisterOrderManager().addActionListener(this);
         this.mainView.getMiRegisterBuyer().addActionListener(this);
         this.mainView.getMiRegisterCustomer().addActionListener(this);
         this.mainView.getMiRegisterMechanic().addActionListener(this);
@@ -103,6 +120,7 @@ public class MainController implements ActionListener {
         this.administratorFormView.getbSignUp().addActionListener(this);
         this.customerFormView.getbSignUp().addActionListener(this);
         this.motorcycleFormView.getbRegister().addActionListener(this);
+        this.orderManagerFormView.getbSignUp().addActionListener(this);
 
         // sign in view
         this.signInView.getbSignIn().addActionListener(this);
@@ -112,6 +130,9 @@ public class MainController implements ActionListener {
         this.administratorMainView.getbRegisterMotorcycle().addActionListener(this);
         this.registeredUsersView.getCbRegisteredUsers().addActionListener(this);
         this.registeredUsersView.getbSeeRegisteredUsers().addActionListener(this);
+
+        // customer main view
+        this.getCustomerMainView().getbSeeProducts().addActionListener(this);
     }
 
     // show views
@@ -125,6 +146,10 @@ public class MainController implements ActionListener {
 
     public void showAdministratorFormView() {
         getAdministratorFormView().setVisible(true);
+    }
+
+    public void showOrderManagerFormView() {
+        getOrderManagerFormView().setVisible(true);
     }
 
     public void showBuyerFormView() {
@@ -151,12 +176,18 @@ public class MainController implements ActionListener {
         getRegisteredUsersView().setVisible(true);
     }
 
+    public void showRegisteredUsersTables() {
+        getAdministratorMainController().showRegisteredUsersTables();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
         // show form views
         if (e.getSource() == getMainView().getMiRegisterAdministrator()) {
             showAdministratorFormView();
+        } else if (e.getSource() == getMainView().getMiRegisterOrderManager()) {
+            showOrderManagerFormView();
         } else if (e.getSource() == getMainView().getMiRegisterBuyer()) {
             showBuyerFormView();
         } else if (e.getSource() == getMainView().getMiRegisterCustomer()) {
@@ -180,6 +211,10 @@ public class MainController implements ActionListener {
             getAdministratorFormController().signUpAdministrator();
         }
 
+        if (e.getSource() == getOrderManagerFormView().getbSignUp()) {
+            getOrderManagerFormController().signUpOrderManager();
+        }
+
         if (e.getSource() == getCustomerFormView().getbSignUp()) {
             getCustomerFormController().signUpCustomer();
         }
@@ -190,7 +225,7 @@ public class MainController implements ActionListener {
 
         // sign in
         if (e.getSource() == getSignInView().getbSignIn()) {
-            getSignInController().administratorSignIn();
+            getSignInController().signIn();
         }
 
         // show registered users view
@@ -200,7 +235,11 @@ public class MainController implements ActionListener {
 
         // show register tables
         if (e.getSource() == getRegisteredUsersView().getbSeeRegisteredUsers()) {
-            getAdministratorMainController().showRegisteredUsersTables();
+            showRegisteredUsersTables();
+        }
+
+        if (e.getSource() == getCustomerMainView().getbSeeProducts()) {
+            getCustomerMainController().showRegisteredMotorcyclesTable();
         }
     }
 }

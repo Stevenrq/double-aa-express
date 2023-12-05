@@ -5,18 +5,17 @@
 package org.doubleaaexpress.views;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 
 /**
  *
  * @author steve
  */
-public class RegisteredUsersView extends javax.swing.JFrame {
+public class CustomerMainView extends javax.swing.JFrame {
 
     /**
-     * Creates new form RegisteredUsersView
+     * Creates new form CustomerMainView
      */
-    public RegisteredUsersView() {
+    public CustomerMainView() {
         initComponents();
     }
 
@@ -30,50 +29,43 @@ public class RegisteredUsersView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        cbRegisteredUsers = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        bSeeRegisteredUsers = new javax.swing.JButton();
+        bSeeProducts = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registered Users", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(0, 153, 153))); // NOI18N
-
-        cbRegisteredUsers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Administrators", "Order Managers", "Customers", "Motorcycles", "Buyers", "Mechanics", "Sellers" }));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Customer Main View", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(0, 153, 153))); // NOI18N
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("See registered users:");
+        jLabel1.setText("Registered Products");
 
-        bSeeRegisteredUsers.setBackground(new java.awt.Color(0, 102, 102));
-        bSeeRegisteredUsers.setForeground(new java.awt.Color(255, 255, 255));
-        bSeeRegisteredUsers.setText("Click");
+        bSeeProducts.setBackground(new java.awt.Color(0, 102, 102));
+        bSeeProducts.setForeground(new java.awt.Color(255, 255, 255));
+        bSeeProducts.setText("See");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(174, Short.MAX_VALUE)
+                .addContainerGap(183, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(cbRegisteredUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(154, 154, 154))
+                        .addComponent(bSeeProducts)
+                        .addGap(195, 195, 195))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(163, 163, 163))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(bSeeRegisteredUsers)
-                        .addGap(189, 189, 189))))
+                        .addGap(168, 168, 168))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(123, 123, 123)
+                .addGap(116, 116, 116)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(cbRegisteredUsers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(bSeeRegisteredUsers)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addComponent(bSeeProducts)
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -114,43 +106,34 @@ public class RegisteredUsersView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisteredUsersView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerMainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisteredUsersView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerMainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisteredUsersView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerMainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisteredUsersView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerMainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisteredUsersView().setVisible(true);
+                new CustomerMainView().setVisible(true);
             }
         });
     }
 
-    public JComboBox<String> getCbRegisteredUsers() {
-        return cbRegisteredUsers;
+    public JButton getbSeeProducts() {
+        return bSeeProducts;
     }
 
-    public void setCbRegisteredUsers(JComboBox<String> cbRegisteredUsers) {
-        this.cbRegisteredUsers = cbRegisteredUsers;
-    }
-
-    public JButton getbSeeRegisteredUsers() {
-        return bSeeRegisteredUsers;
-    }
-
-    public void setbSeeRegisteredUsers(JButton bSeeRegisteredUsers) {
-        this.bSeeRegisteredUsers = bSeeRegisteredUsers;
+    public void setbSeeProducts(JButton bSeeProducts) {
+        this.bSeeProducts = bSeeProducts;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bSeeRegisteredUsers;
-    private javax.swing.JComboBox<String> cbRegisteredUsers;
+    private javax.swing.JButton bSeeProducts;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

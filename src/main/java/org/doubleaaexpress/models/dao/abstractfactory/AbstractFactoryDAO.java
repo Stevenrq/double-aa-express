@@ -2,6 +2,7 @@ package org.doubleaaexpress.models.dao.abstractfactory;
 
 import org.doubleaaexpress.models.Administrator;
 import org.doubleaaexpress.models.Customer;
+import org.doubleaaexpress.models.OrderManager;
 
 /**
  * AbstractFactoryDAO is an abstract class that serves as a factory for creating
@@ -19,6 +20,7 @@ public abstract class AbstractFactoryDAO {
      */
     public abstract GenericUserDAO<Administrator> getAdministratorDAO();
 
+    public abstract GenericUserDAO<OrderManager> getOrderManagerDAO();
 
     public abstract GenericUserDAO<Customer> getCustomerDAO();
 }

@@ -10,12 +10,12 @@ import javax.swing.JTable;
  *
  * @author steve
  */
-public class RegisteredAdministratorsTableView extends javax.swing.JFrame {
+public class RegisteredCustomersTableView extends javax.swing.JFrame {
 
     /**
-     * Creates new form RegisteredAdministratorsTableView
+     * Creates new form RegisteredCustomersTableView
      */
-    public RegisteredAdministratorsTableView() {
+    public RegisteredCustomersTableView() {
         initComponents();
     }
 
@@ -29,11 +29,11 @@ public class RegisteredAdministratorsTableView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tRegisteredAdministrators = new javax.swing.JTable();
+        tRegisteredCustomers = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tRegisteredAdministrators.setModel(new javax.swing.table.DefaultTableModel(
+        tRegisteredCustomers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -49,7 +49,7 @@ public class RegisteredAdministratorsTableView extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tRegisteredAdministrators);
+        jScrollPane1.setViewportView(tRegisteredCustomers);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,34 +89,34 @@ public class RegisteredAdministratorsTableView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisteredAdministratorsTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredCustomersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisteredAdministratorsTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredCustomersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisteredAdministratorsTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredCustomersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisteredAdministratorsTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredCustomersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisteredAdministratorsTableView().setVisible(true);
+                new RegisteredCustomersTableView().setVisible(true);
             }
         });
     }
 
-    public JTable gettRegisteredAdministrators() {
-        return tRegisteredAdministrators;
+    public JTable gettRegisteredCustomers() {
+        return tRegisteredCustomers;
     }
 
-    public void settRegisteredAdministrators(JTable tRegisteredAdministrators) {
-        this.tRegisteredAdministrators = tRegisteredAdministrators;
+    public void settRegisteredCustomers(JTable tRegisteredCustomers) {
+        this.tRegisteredCustomers = tRegisteredCustomers;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tRegisteredAdministrators;
+    private javax.swing.JTable tRegisteredCustomers;
     // End of variables declaration//GEN-END:variables
 }

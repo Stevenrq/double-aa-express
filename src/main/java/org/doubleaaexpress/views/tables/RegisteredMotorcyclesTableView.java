@@ -10,12 +10,12 @@ import javax.swing.JTable;
  *
  * @author steve
  */
-public class RegisteredAdministratorsTableView extends javax.swing.JFrame {
+public class RegisteredMotorcyclesTableView extends javax.swing.JFrame {
 
     /**
-     * Creates new form RegisteredAdministratorsTableView
+     * Creates new form RegisteredProductsTableView
      */
-    public RegisteredAdministratorsTableView() {
+    public RegisteredMotorcyclesTableView() {
         initComponents();
     }
 
@@ -29,27 +29,27 @@ public class RegisteredAdministratorsTableView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tRegisteredAdministrators = new javax.swing.JTable();
+        tRegisteredMotorcycles = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tRegisteredAdministrators.setModel(new javax.swing.table.DefaultTableModel(
+        tRegisteredMotorcycles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "First Name", "Last Name", "Phone Number", "Birth Date", "Email"
+                "Id", "Name", "Price", "Model", "Year", "Plate Number", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Short.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tRegisteredAdministrators);
+        jScrollPane1.setViewportView(tRegisteredMotorcycles);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,34 +89,35 @@ public class RegisteredAdministratorsTableView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisteredAdministratorsTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredMotorcyclesTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisteredAdministratorsTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredMotorcyclesTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisteredAdministratorsTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredMotorcyclesTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisteredAdministratorsTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredMotorcyclesTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisteredAdministratorsTableView().setVisible(true);
+                new RegisteredMotorcyclesTableView().setVisible(true);
             }
         });
     }
 
-    public JTable gettRegisteredAdministrators() {
-        return tRegisteredAdministrators;
+    public JTable gettRegisteredMotorcycles() {
+        return tRegisteredMotorcycles;
     }
 
-    public void settRegisteredAdministrators(JTable tRegisteredAdministrators) {
-        this.tRegisteredAdministrators = tRegisteredAdministrators;
+    public void settRegisteredMotorcycles(JTable tRegisteredMotorcycles) {
+        this.tRegisteredMotorcycles = tRegisteredMotorcycles;
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tRegisteredAdministrators;
+    private javax.swing.JTable tRegisteredMotorcycles;
     // End of variables declaration//GEN-END:variables
 }

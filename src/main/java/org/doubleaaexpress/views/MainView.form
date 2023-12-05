@@ -23,6 +23,16 @@
                 <Property name="text" type="java.lang.String" value="Register as Administrator"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miRegisterOrderManager">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Register as Order Manager"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miRegisterCustomer">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Register as Customer"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="miRegisterBuyer">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Register as Buyer"/>
@@ -31,11 +41,6 @@
             <MenuItem class="javax.swing.JMenuItem" name="miRegisterSeller">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Register as Seller"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miRegisterCustomer">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Register as Customer"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="miRegisterMechanic">

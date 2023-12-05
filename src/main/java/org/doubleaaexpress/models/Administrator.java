@@ -15,7 +15,7 @@ public class Administrator extends User {
     }
 
     public Administrator(Long id, String firstName, String lastName, String phoneNumber, LocalDate birthDate,
-                         String email, String password) {
+            String email, String password) {
         super(id, firstName, lastName, phoneNumber, birthDate, email, password);
     }
 
@@ -35,18 +35,16 @@ public class Administrator extends User {
         model.addColumn("Phone Number");
         model.addColumn("Birth Date");
         model.addColumn("Email");
-        model.addColumn("Password");
 
         for (int i = 0; i < administrators.size(); i++) {
             Administrator administrator = administrators.get(i);
-            model.addRow(new Object[]{});
+            model.addRow(new Object[] {});
             model.setValueAt(administrator.getId(), i, 0);
             model.setValueAt(administrator.getFirstName(), i, 1);
             model.setValueAt(administrator.getLastName(), i, 2);
             model.setValueAt(administrator.getPhoneNumber(), i, 3);
             model.setValueAt(administrator.getBirthDate(), i, 4);
             model.setValueAt(administrator.getEmail(), i, 5);
-            model.setValueAt(administrator.getPassword(), i, 6);
         }
         table.setModel(model);
     }

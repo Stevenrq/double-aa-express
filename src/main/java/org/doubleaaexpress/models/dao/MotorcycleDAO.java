@@ -14,7 +14,7 @@ import org.doubleaaexpress.util.DBConnection;
 
 public class MotorcycleDAO {
 
-    private Connection connection = DBConnection.getInstance().getConnection();
+    private final Connection connection = DBConnection.getInstance().getConnection();
 
     public void addMotorcycle(Motorcycle motorcycle) {
         PreparedStatement preparedStatement;

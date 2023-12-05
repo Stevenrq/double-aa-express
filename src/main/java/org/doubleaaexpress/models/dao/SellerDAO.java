@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SellerDAO {
 
-    private Connection connection = DBConnection.getInstance().getConnection();
+    private final Connection connection = DBConnection.getInstance().getConnection();
 
     public void addSeller(Seller seller) {
         PreparedStatement preparedStatement;
