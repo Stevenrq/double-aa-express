@@ -1,5 +1,6 @@
 package org.doubleaaexpress.controllers;
 
+import org.doubleaaexpress.controllers.forms.SignInFormController;
 import org.doubleaaexpress.controllers.forms.AdministratorFormController;
 import org.doubleaaexpress.controllers.forms.CustomerFormController;
 import org.doubleaaexpress.controllers.forms.MotorcycleFormController;
@@ -17,8 +18,9 @@ import org.doubleaaexpress.views.RegisteredUsersView;
 import org.doubleaaexpress.views.forms.AdministratorFormView;
 import org.doubleaaexpress.views.forms.BuyerFormView;
 import org.doubleaaexpress.views.forms.CustomerFormView;
-import org.doubleaaexpress.views.forms.SignInView;
+import org.doubleaaexpress.views.forms.SignInFormView;
 import org.doubleaaexpress.views.tables.RegisteredAdministratorsTableView;
+import org.doubleaaexpress.views.tables.RegisteredMotorcyclesTableView;
 import org.doubleaaexpress.views.forms.MechanicFormView;
 import org.doubleaaexpress.views.forms.MotorcycleFormView;
 import org.doubleaaexpress.views.forms.OrderManagerFormView;
@@ -44,7 +46,7 @@ public class MainController implements ActionListener {
     private Seller seller;
 
     private MainView mainView;
-    private SignInView signInView;
+    private SignInFormView signInView;
     private AdministratorFormView administratorFormView;
     private BuyerFormView buyerFormView;
     private CustomerFormView customerFormView;
@@ -56,28 +58,31 @@ public class MainController implements ActionListener {
     private AdministratorMainView administratorMainView;
     private CustomerMainView customerMainView;
     private RegisteredUsersView registeredUsersView;
+    private RegisteredMotorcyclesTableView registeredMotorcyclesTableView;
 
     private AdministratorFormController administratorFormController;
     private CustomerFormController customerFormController;
-    private SignInController signInController;
+    private SignInFormController signInController;
     private AdministratorMainController administratorMainController;
     private MotorcycleFormController motorcycleFormController;
     private OrderManagerFormController orderManagerFormController;
     private CustomerMainController customerMainController;
+    private OrderController orderController;
 
     public MainController(Administrator administrator, OrderManager orderManager, Buyer buyer, Customer customer,
-                          Mechanic mechanic, Seller seller, MainView mainView, SignInView signInView,
-                          AdministratorFormView administratorFormView,
-                          BuyerFormView buyerFormView, CustomerFormView customerFormView, MechanicFormView mechanicFormView,
-                          SellerFormView sellerFormView, MotorcycleFormView motorcycleFormView,
-                          OrderManagerFormView orderManagerFormView,
-                          RegisteredAdministratorsTableView registeredAdministratorsTableView,
-                          AdministratorMainView administratorMainView, CustomerMainView customerMainView, RegisteredUsersView registeredUsersView,
-                          AdministratorFormController administratorFormController,
-                          CustomerFormController customerFormController, SignInController signInController,
-                          AdministratorMainController administratorMainController,
-                          MotorcycleFormController motorcycleFormController, OrderManagerFormController orderManagerFormController,
-                          CustomerMainController customerMainController) {
+            Mechanic mechanic, Seller seller, MainView mainView, SignInFormView signInView,
+            AdministratorFormView administratorFormView,
+            BuyerFormView buyerFormView, CustomerFormView customerFormView, MechanicFormView mechanicFormView,
+            SellerFormView sellerFormView, MotorcycleFormView motorcycleFormView,
+            OrderManagerFormView orderManagerFormView,
+            RegisteredAdministratorsTableView registeredAdministratorsTableView,
+            AdministratorMainView administratorMainView, CustomerMainView customerMainView,
+            RegisteredUsersView registeredUsersView, RegisteredMotorcyclesTableView registeredMotorcyclesTableView,
+            AdministratorFormController administratorFormController,
+            CustomerFormController customerFormController, SignInFormController signInController,
+            AdministratorMainController administratorMainController,
+            MotorcycleFormController motorcycleFormController, OrderManagerFormController orderManagerFormController,
+            CustomerMainController customerMainController, OrderController orderController) {
 
         this.administrator = administrator;
         this.orderManager = orderManager;
@@ -101,10 +106,12 @@ public class MainController implements ActionListener {
         this.administratorMainView = administratorMainView;
         this.customerMainView = customerMainView;
         this.registeredUsersView = registeredUsersView;
+        this.registeredMotorcyclesTableView = registeredMotorcyclesTableView;
         this.administratorMainController = administratorMainController;
         this.motorcycleFormController = motorcycleFormController;
         this.orderManagerFormController = orderManagerFormController;
         this.customerMainController = customerMainController;
+        this.orderController = orderController;
 
         // main view
         this.mainView.getbSignIn().addActionListener(this);
@@ -132,7 +139,9 @@ public class MainController implements ActionListener {
         this.registeredUsersView.getbSeeRegisteredUsers().addActionListener(this);
 
         // customer main view
-        this.getCustomerMainView().getbSeeProducts().addActionListener(this);
+        this.getCustomerMainView().getbSeeMotorcycles().addActionListener(this);
+
+        this.registeredMotorcyclesTableView.getbBuyMotorcycle().addActionListener(this);
     }
 
     // show views
@@ -238,8 +247,13 @@ public class MainController implements ActionListener {
             showRegisteredUsersTables();
         }
 
-        if (e.getSource() == getCustomerMainView().getbSeeProducts()) {
+        if (e.getSource() == getCustomerMainView().getbSeeMotorcycles()) {
             getCustomerMainController().showRegisteredMotorcyclesTable();
+        }
+
+        // register the order
+        if (e.getSource() == getRegisteredMotorcyclesTableView().getbBuyMotorcycle()) {
+            getOrderController().registerOrder();
         }
     }
 }

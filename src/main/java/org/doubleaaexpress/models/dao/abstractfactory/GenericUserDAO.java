@@ -36,6 +36,16 @@ public interface GenericUserDAO<T> {
     boolean get(String email, String password);
 
     /**
+     * Retrieves the user with the specified email and password.
+     *
+     * @param email    the user's email address
+     * @param password the user's password
+     * @return the user with the specified email and password, or {@code null} if no
+     *         such user exists
+     */
+    T getUser(String email, String password);
+
+    /**
      * Updates the specified entity in the data store.
      *
      * @param t the entity to update

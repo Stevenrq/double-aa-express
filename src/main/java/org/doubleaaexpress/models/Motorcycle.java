@@ -6,7 +6,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.doubleaaexpress.models.dao.MotorcycleDAO;
 
@@ -23,8 +22,9 @@ public class Motorcycle extends Product {
         super();
     }
 
-    public Motorcycle(Long id, String name, Double price, String model, Short year, String plateNumber, String status) {
-        super(id, name, price);
+    public Motorcycle(Long id, String name, Double price, Integer quantity, String model, Short year,
+            String plateNumber, String status) {
+        super(id, name, price, quantity);
         this.model = model;
         this.year = year;
         this.plateNumber = plateNumber;
@@ -44,6 +44,7 @@ public class Motorcycle extends Product {
         model.addColumn("Id");
         model.addColumn("Name");
         model.addColumn("Price");
+        model.addColumn("Quantity");
         model.addColumn("Model");
         model.addColumn("Year");
         model.addColumn("PlateNumber");
@@ -55,10 +56,11 @@ public class Motorcycle extends Product {
             model.setValueAt(motorcycle.getId(), i, 0);
             model.setValueAt(motorcycle.getName(), i, 1);
             model.setValueAt(motorcycle.getPrice(), i, 2);
-            model.setValueAt(motorcycle.getModel(), i, 3);
-            model.setValueAt(motorcycle.getYear(), i, 4);
-            model.setValueAt(motorcycle.getPlateNumber(), i, 5);
-            model.setValueAt(motorcycle.getStatus(), i, 6);
+            model.setValueAt(motorcycle.getQuantity(), i, 3);
+            model.setValueAt(motorcycle.getModel(), i, 4);
+            model.setValueAt(motorcycle.getYear(), i, 5);
+            model.setValueAt(motorcycle.getPlateNumber(), i, 6);
+            model.setValueAt(motorcycle.getStatus(), i, 7);
         }
         table.setModel(model);
     }

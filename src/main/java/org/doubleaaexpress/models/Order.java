@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.doubleaaexpress.models.dao.OrderDAO;
-import org.doubleaaexpress.models.dao.OrderManagerDAO;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;

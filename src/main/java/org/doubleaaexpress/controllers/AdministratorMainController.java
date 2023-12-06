@@ -37,12 +37,12 @@ public class AdministratorMainController {
     private RegisteredMotorcyclesTableView registeredMotorcyclesTableView;
 
     public AdministratorMainController(Administrator administrator, OrderManager orderManager, Customer customer,
-                                       Motorcycle motorcycle, MainView mainView,
-                                       AdministratorMainView administratorMainView, RegisteredUsersView registeredUsersView,
-                                       RegisteredAdministratorsTableView registeredAdministratorsTableView,
-                                       RegisteredOrderManagersTableView registeredOrderManagersTableView,
-                                       RegisteredCustomersTableView registeredCustomersTableView,
-                                       RegisteredMotorcyclesTableView registeredMotorcyclesTableView) {
+            Motorcycle motorcycle, MainView mainView,
+            AdministratorMainView administratorMainView, RegisteredUsersView registeredUsersView,
+            RegisteredAdministratorsTableView registeredAdministratorsTableView,
+            RegisteredOrderManagersTableView registeredOrderManagersTableView,
+            RegisteredCustomersTableView registeredCustomersTableView,
+            RegisteredMotorcyclesTableView registeredMotorcyclesTableView) {
 
         this.administrator = administrator;
         this.orderManager = orderManager;
@@ -56,10 +56,11 @@ public class AdministratorMainController {
         this.registeredCustomersTableView = registeredCustomersTableView;
         this.registeredMotorcyclesTableView = registeredMotorcyclesTableView;
 
-
         // populates the table when starting the application
-        this.administrator.populateAdministratorTable(getRegisteredAdministratorsTableView().gettRegisteredAdministrators());
-        this.orderManager.populateAdministratorTable(getRegisteredOrderManagersTableView().gettRegisteredOrderManagers());
+        this.administrator
+                .populateAdministratorTable(getRegisteredAdministratorsTableView().gettRegisteredAdministrators());
+        this.orderManager
+                .populateAdministratorTable(getRegisteredOrderManagersTableView().gettRegisteredOrderManagers());
         this.customer.populateCustomerTable(getRegisteredCustomersTableView().gettRegisteredCustomers());
         this.motorcycle.populateMotorcycleTable(getRegisteredMotorcyclesTableView().gettRegisteredMotorcycles());
     }
@@ -92,6 +93,7 @@ public class AdministratorMainController {
                     JOptionPane.showMessageDialog(null, "There are no registered motorcycles");
                 else
                     getRegisteredMotorcyclesTableView().setVisible(true);
+                getRegisteredMotorcyclesTableView().getbBuyMotorcycle().setVisible(false);
                 break;
             default:
                 // default option

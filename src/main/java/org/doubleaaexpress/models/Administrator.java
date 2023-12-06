@@ -14,9 +14,9 @@ public class Administrator extends User {
         super();
     }
 
-    public Administrator(Long id, String firstName, String lastName, String phoneNumber, LocalDate birthDate,
-            String email, String password) {
-        super(id, firstName, lastName, phoneNumber, birthDate, email, password);
+    public Administrator(Long id, String firstName, String lastName, String phoneNumber, String address,
+            LocalDate birthDate, String email, String password) {
+        super(id, firstName, lastName, phoneNumber, address, birthDate, email, password);
     }
 
     /**
@@ -33,6 +33,7 @@ public class Administrator extends User {
         model.addColumn("First Name");
         model.addColumn("Last Name");
         model.addColumn("Phone Number");
+        model.addColumn("Address");
         model.addColumn("Birth Date");
         model.addColumn("Email");
 
@@ -43,8 +44,9 @@ public class Administrator extends User {
             model.setValueAt(administrator.getFirstName(), i, 1);
             model.setValueAt(administrator.getLastName(), i, 2);
             model.setValueAt(administrator.getPhoneNumber(), i, 3);
-            model.setValueAt(administrator.getBirthDate(), i, 4);
-            model.setValueAt(administrator.getEmail(), i, 5);
+            model.setValueAt(administrator.getAddress(), i, 4);
+            model.setValueAt(administrator.getBirthDate(), i, 5);
+            model.setValueAt(administrator.getEmail(), i, 6);
         }
         table.setModel(model);
     }

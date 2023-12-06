@@ -8,8 +8,8 @@ public class Mechanic extends User {
         super();
     }
 
-    public Mechanic(Long id, String firstName, String lastName, String phoneNumber, LocalDate birthDate,
-                         String email, String password) {
-        super(id, firstName, lastName, phoneNumber, birthDate, email, password);
+    public Mechanic(Long id, String firstName, String lastName, String phoneNumber, String address, LocalDate birthDate,
+            String email, String password) {
+        super(id, firstName, lastName, phoneNumber, address, birthDate, email, password);
     }
 }

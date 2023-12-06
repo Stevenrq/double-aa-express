@@ -14,8 +14,7 @@ public class SellerDAO {
 
     public void addSeller(Seller seller) {
         PreparedStatement preparedStatement;
-        String sql = "INSERT INTO sellers (seller_id, first_Name, last_name, phone_number, birth_date, email, password) " +
-                "VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO sellers (seller_id, first_Name, last_name, phone_number, address, birth_date, email, password) VALUES (?,?,?,?,?,?,?,?)";
         Date birthDate = Date.valueOf(seller.getBirthDate());
 
         try {
@@ -24,9 +23,10 @@ public class SellerDAO {
             preparedStatement.setString(2, seller.getFirstName());
             preparedStatement.setString(3, seller.getLastName());
             preparedStatement.setString(4, seller.getPhoneNumber());
-            preparedStatement.setDate(5, birthDate);
-            preparedStatement.setString(6, seller.getEmail());
-            preparedStatement.setString(7, seller.getPassword());
+            preparedStatement.setString(5, seller.getAddress());
+            preparedStatement.setDate(6, birthDate);
+            preparedStatement.setString(7, seller.getEmail());
+            preparedStatement.setString(8, seller.getPassword());
             preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println("Error adding seller: " + e.getMessage());
@@ -48,6 +48,7 @@ public class SellerDAO {
                 seller.setFirstName(resultSet.getString("first_name"));
                 seller.setLastName(resultSet.getString("last_name"));
                 seller.setPhoneNumber(resultSet.getString("phone_number"));
+                seller.setAddress(resultSet.getString("address"));
                 seller.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 seller.setEmail(resultSet.getString("email"));
                 seller.setPassword(resultSet.getString("password"));
@@ -61,8 +62,7 @@ public class SellerDAO {
 
     public void updateSeller(Seller seller) {
         PreparedStatement ps;
-        String sql = "UPDATE sellers SET first_name = ?, last_name = ?, phone_number = ?, birth_date = ?, email = ?, " +
-                "password = ? WHERE seller_id = ?";
+        String sql = "UPDATE sellers SET first_name = ?, last_name = ?, phone_number = ?, address = ?, birth_date = ?, email = ?, password = ? WHERE seller_id = ?";
         Date birthDate = Date.valueOf(seller.getBirthDate());
 
         try {
@@ -70,10 +70,11 @@ public class SellerDAO {
             ps.setString(1, seller.getFirstName());
             ps.setString(2, seller.getLastName());
             ps.setString(3, seller.getPhoneNumber());
-            ps.setDate(4, birthDate);
-            ps.setString(5, seller.getEmail());
-            ps.setString(6, seller.getPassword());
-            ps.setLong(7, seller.getId());
+            ps.setString(4, seller.getAddress());
+            ps.setDate(5, birthDate);
+            ps.setString(6, seller.getEmail());
+            ps.setString(7, seller.getPassword());
+            ps.setLong(8, seller.getId());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error updating seller: " + e.getMessage());
@@ -108,6 +109,7 @@ public class SellerDAO {
                 seller.setFirstName(resultSet.getString("first_name"));
                 seller.setLastName(resultSet.getString("last_name"));
                 seller.setPhoneNumber(resultSet.getString("phone_number"));
+                seller.setAddress(resultSet.getString("address"));
                 seller.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 seller.setEmail(resultSet.getString("email"));
                 seller.setPassword(resultSet.getString("password"));

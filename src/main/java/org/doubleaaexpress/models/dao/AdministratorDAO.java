@@ -22,7 +22,7 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
     @Override
     public void add(Administrator administrator) {
         PreparedStatement preparedStatement;
-        String sql = "INSERT INTO administrators (administrator_id, first_Name, last_name, phone_number, birth_date, email, password) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO administrators (administrator_id, first_Name, last_name, phone_number, address, birth_date, email, password) VALUES (?,?,?,?,?,?,?,?)";
         Date birthDate = Date.valueOf(administrator.getBirthDate());
 
         try {
@@ -31,9 +31,10 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
             preparedStatement.setString(2, administrator.getFirstName());
             preparedStatement.setString(3, administrator.getLastName());
             preparedStatement.setString(4, administrator.getPhoneNumber());
-            preparedStatement.setDate(5, birthDate);
-            preparedStatement.setString(6, administrator.getEmail());
-            preparedStatement.setString(7, administrator.getPassword());
+            preparedStatement.setString(5, administrator.getAddress());
+            preparedStatement.setDate(6, birthDate);
+            preparedStatement.setString(7, administrator.getEmail());
+            preparedStatement.setString(8, administrator.getPassword());
             preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println("Error adding administrator: " + e.getMessage());
@@ -56,6 +57,7 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
                 administrator.setFirstName(resultSet.getString("first_name"));
                 administrator.setLastName(resultSet.getString("last_name"));
                 administrator.setPhoneNumber(resultSet.getString("phone_number"));
+                administrator.setAddress(resultSet.getString("address"));
                 administrator.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 administrator.setEmail(resultSet.getString("email"));
             } else
@@ -83,6 +85,7 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
                 administrator.setFirstName(resultSet.getString("first_name"));
                 administrator.setLastName(resultSet.getString("last_name"));
                 administrator.setPhoneNumber(resultSet.getString("phone_number"));
+                administrator.setAddress(resultSet.getString("address"));
                 administrator.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 administrator.setEmail(resultSet.getString("email"));
                 administrator.setPassword(resultSet.getString("password"));
@@ -99,7 +102,7 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
     @Override
     public void update(Administrator administrator) {
         PreparedStatement ps;
-        String sql = "UPDATE administrators SET first_name = ?, last_name = ?, phone_number = ?, birth_date = ?, email = ?, password = ? WHERE administrator_id = ?";
+        String sql = "UPDATE administrators SET first_name = ?, last_name = ?, phone_number = ?, address = ?, birth_date = ?, email = ?, password = ? WHERE administrator_id = ?";
         Date birthDate = Date.valueOf(administrator.getBirthDate());
 
         try {
@@ -107,10 +110,11 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
             ps.setString(1, administrator.getFirstName());
             ps.setString(2, administrator.getLastName());
             ps.setString(3, administrator.getPhoneNumber());
-            ps.setDate(4, birthDate);
-            ps.setString(5, administrator.getEmail());
-            ps.setString(6, administrator.getPassword());
-            ps.setLong(7, administrator.getId());
+            ps.setString(4, administrator.getAddress());
+            ps.setDate(5, birthDate);
+            ps.setString(6, administrator.getEmail());
+            ps.setString(7, administrator.getPassword());
+            ps.setLong(8, administrator.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating administrator: " + e.getMessage());
@@ -148,6 +152,7 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
                 administrator.setFirstName(resultSet.getString("first_name"));
                 administrator.setLastName(resultSet.getString("last_name"));
                 administrator.setPhoneNumber(resultSet.getString("phone_number"));
+                administrator.setAddress(resultSet.getString("address"));
                 administrator.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 administrator.setEmail(resultSet.getString("email"));
                 administrator.setPassword(resultSet.getString("password"));
@@ -155,7 +160,8 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
             }
             while (iterator.hasNext()) {
                 Administrator administrator = iterator.next();
-                // System.out.println(administrator.getFirstName() + " " + administrator.getLastName());
+                // System.out.println(administrator.getFirstName() + " " +
+                // administrator.getLastName());
             }
         } catch (SQLException e) {
             System.out.println("Error getting all administrators: " + e.getMessage());
@@ -174,14 +180,15 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
             preparedStatement.setString(1, administrator.getEmail());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                if (administrator.getPassword().equals(resultSet.getString(7))) {
+                if (administrator.getPassword().equals(resultSet.getString(8))) {
                     administrator.setId(resultSet.getLong(1));
                     administrator.setFirstName(resultSet.getString(2));
                     administrator.setLastName(resultSet.getString(3));
                     administrator.setPhoneNumber(resultSet.getString(4));
-                    administrator.setBirthDate(resultSet.getDate(5).toLocalDate());
-                    administrator.setEmail(resultSet.getString(6));
-                    administrator.setPassword(resultSet.getString(7));
+                    administrator.setAddress(resultSet.getString(5));
+                    administrator.setBirthDate(resultSet.getDate(6).toLocalDate());
+                    administrator.setEmail(resultSet.getString(7));
+                    administrator.setPassword(resultSet.getString(8));
                     return true;
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect Password");
@@ -195,5 +202,35 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
             System.out.println("failed to sign in: " + e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public Administrator getUser(String email, String password) {
+        String sql = "SELECT * FROM administrators WHERE email = ? and  password = ?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        Administrator administrator = new Administrator();
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                administrator.setId(resultSet.getLong("administrator_id"));
+                administrator.setFirstName(resultSet.getString("first_name"));
+                administrator.setLastName(resultSet.getString("last_name"));
+                administrator.setPhoneNumber(resultSet.getString("phone_number"));
+                administrator.setAddress(resultSet.getString("address"));
+                administrator.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
+                administrator.setEmail(resultSet.getString("email"));
+                administrator.setPassword(resultSet.getString("password"));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting administrator: " + e.getMessage());
+        }
+        return administrator;
     }
 }

@@ -4,6 +4,8 @@
  */
 package org.doubleaaexpress.views.tables;
 
+import javax.swing.JTable;
+
 /**
  *
  * @author steve
@@ -27,12 +29,12 @@ public class RegisteredOrdersTableView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tRegisteredOrders = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tRegisteredOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -48,7 +50,7 @@ public class RegisteredOrdersTableView extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tRegisteredOrders);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 153, 153));
@@ -116,9 +118,18 @@ public class RegisteredOrdersTableView extends javax.swing.JFrame {
         });
     }
 
+    public JTable gettRegisteredOrders() {
+        return tRegisteredOrders;
+    }
+
+    public void settRegisteredOrders(JTable tRegisteredOrders) {
+        this.tRegisteredOrders = tRegisteredOrders;
+    }
+   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tRegisteredOrders;
     // End of variables declaration//GEN-END:variables
 }

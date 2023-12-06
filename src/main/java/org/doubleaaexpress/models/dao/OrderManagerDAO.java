@@ -21,7 +21,7 @@ public class OrderManagerDAO implements GenericUserDAO<OrderManager> {
     @Override
     public void add(OrderManager orderManager) {
         PreparedStatement preparedStatement;
-        String sql = "INSERT INTO order_managers (order_manager_id, first_Name, last_name, phone_number, birth_date, email, password) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO order_managers (order_manager_id, first_Name, last_name, phone_number, address, birth_date, email, password) VALUES (?,?,?,?,?,?,?,?)";
         Date birthDate = Date.valueOf(orderManager.getBirthDate());
 
         try {
@@ -30,9 +30,10 @@ public class OrderManagerDAO implements GenericUserDAO<OrderManager> {
             preparedStatement.setString(2, orderManager.getFirstName());
             preparedStatement.setString(3, orderManager.getLastName());
             preparedStatement.setString(4, orderManager.getPhoneNumber());
-            preparedStatement.setDate(5, birthDate);
-            preparedStatement.setString(6, orderManager.getEmail());
-            preparedStatement.setString(7, orderManager.getPassword());
+            preparedStatement.setString(5, orderManager.getAddress());
+            preparedStatement.setDate(6, birthDate);
+            preparedStatement.setString(7, orderManager.getEmail());
+            preparedStatement.setString(8, orderManager.getPassword());
             preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println("Error adding order manager: " + e.getMessage());
@@ -55,6 +56,7 @@ public class OrderManagerDAO implements GenericUserDAO<OrderManager> {
                 orderManager.setFirstName(resultSet.getString("first_name"));
                 orderManager.setLastName(resultSet.getString("last_name"));
                 orderManager.setPhoneNumber(resultSet.getString("phone_number"));
+                orderManager.setAddress(resultSet.getString("address"));
                 orderManager.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 orderManager.setEmail(resultSet.getString("email"));
             } else
@@ -82,6 +84,7 @@ public class OrderManagerDAO implements GenericUserDAO<OrderManager> {
                 orderManager.setFirstName(resultSet.getString("first_name"));
                 orderManager.setLastName(resultSet.getString("last_name"));
                 orderManager.setPhoneNumber(resultSet.getString("phone_number"));
+                orderManager.setAddress(resultSet.getString("address"));
                 orderManager.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 orderManager.setEmail(resultSet.getString("email"));
                 orderManager.setPassword(resultSet.getString("password"));
@@ -98,7 +101,7 @@ public class OrderManagerDAO implements GenericUserDAO<OrderManager> {
     @Override
     public void update(OrderManager orderManager) {
         PreparedStatement ps;
-        String sql = "UPDATE order_managers SET first_name = ?, last_name = ?, phone_number = ?, birth_date = ?, email = ?, password = ? WHERE order_manager_id = ?";
+        String sql = "UPDATE order_managers SET first_name = ?, last_name = ?, phone_number = ?, address = ?, birth_date = ?, email = ?, password = ? WHERE order_manager_id = ?";
         Date birthDate = Date.valueOf(orderManager.getBirthDate());
 
         try {
@@ -106,10 +109,11 @@ public class OrderManagerDAO implements GenericUserDAO<OrderManager> {
             ps.setString(1, orderManager.getFirstName());
             ps.setString(2, orderManager.getLastName());
             ps.setString(3, orderManager.getPhoneNumber());
-            ps.setDate(4, birthDate);
-            ps.setString(5, orderManager.getEmail());
-            ps.setString(6, orderManager.getPassword());
-            ps.setLong(7, orderManager.getId());
+            ps.setString(4, orderManager.getAddress());
+            ps.setDate(5, birthDate);
+            ps.setString(6, orderManager.getEmail());
+            ps.setString(7, orderManager.getPassword());
+            ps.setLong(8, orderManager.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating order manager: " + e.getMessage());
@@ -146,6 +150,7 @@ public class OrderManagerDAO implements GenericUserDAO<OrderManager> {
                 orderManager.setFirstName(resultSet.getString("first_name"));
                 orderManager.setLastName(resultSet.getString("last_name"));
                 orderManager.setPhoneNumber(resultSet.getString("phone_number"));
+                orderManager.setAddress(resultSet.getString("address"));
                 orderManager.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 orderManager.setEmail(resultSet.getString("email"));
                 orderManager.setPassword(resultSet.getString("password"));
@@ -168,14 +173,15 @@ public class OrderManagerDAO implements GenericUserDAO<OrderManager> {
             preparedStatement.setString(1, orderManager.getEmail());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                if (orderManager.getPassword().equals(resultSet.getString(7))) {
+                if (orderManager.getPassword().equals(resultSet.getString(8))) {
                     orderManager.setId(resultSet.getLong(1));
                     orderManager.setFirstName(resultSet.getString(2));
                     orderManager.setLastName(resultSet.getString(3));
                     orderManager.setPhoneNumber(resultSet.getString(4));
-                    orderManager.setBirthDate(resultSet.getDate(5).toLocalDate());
-                    orderManager.setEmail(resultSet.getString(6));
-                    orderManager.setPassword(resultSet.getString(7));
+                    orderManager.setAddress(resultSet.getString(5));
+                    orderManager.setBirthDate(resultSet.getDate(6).toLocalDate());
+                    orderManager.setEmail(resultSet.getString(7));
+                    orderManager.setPassword(resultSet.getString(8));
                     return true;
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect Password");
@@ -189,6 +195,36 @@ public class OrderManagerDAO implements GenericUserDAO<OrderManager> {
             System.out.println("failed to sign in: " + e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public OrderManager getUser(String email, String password) {
+        String sql = "SELECT * FROM order_managers WHERE email = ? and  password = ?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        OrderManager orderManager = new OrderManager();
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                orderManager.setId(resultSet.getLong("order_manager_id"));
+                orderManager.setFirstName(resultSet.getString("first_name"));
+                orderManager.setLastName(resultSet.getString("last_name"));
+                orderManager.setPhoneNumber(resultSet.getString("phone_number"));
+                orderManager.setAddress(resultSet.getString("address"));
+                orderManager.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
+                orderManager.setEmail(resultSet.getString("email"));
+                orderManager.setPassword(resultSet.getString("password"));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting order manager: " + e.getMessage());
+        }
+        return orderManager;
     }
 
 }

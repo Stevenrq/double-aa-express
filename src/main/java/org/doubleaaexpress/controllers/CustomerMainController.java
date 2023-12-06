@@ -23,10 +23,9 @@ public class CustomerMainController {
     private CustomerMainView customerMainView;
     private RegisteredMotorcyclesTableView registeredMotorcyclesTableView;
 
-
     public CustomerMainController(Customer customer, Motorcycle motorcycle, MainView mainView,
-                                  CustomerMainView customerMainView,
-                                  RegisteredMotorcyclesTableView registeredMotorcyclesTableView) {
+            CustomerMainView customerMainView,
+            RegisteredMotorcyclesTableView registeredMotorcyclesTableView) {
         this.customer = customer;
         this.motorcycle = motorcycle;
         this.mainView = mainView;
@@ -41,5 +40,6 @@ public class CustomerMainController {
             JOptionPane.showMessageDialog(null, "There are no registered motorcycles");
         else
             getRegisteredMotorcyclesTableView().setVisible(true);
+        getRegisteredMotorcyclesTableView().getbBuyMotorcycle().setVisible(true);
     }
 }

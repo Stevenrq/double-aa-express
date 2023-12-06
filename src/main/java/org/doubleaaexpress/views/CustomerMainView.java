@@ -30,7 +30,7 @@ public class CustomerMainView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        bSeeProducts = new javax.swing.JButton();
+        bSeeMotorcycles = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -38,25 +38,25 @@ public class CustomerMainView extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Registered Products");
+        jLabel1.setText("Registered Motorcycles");
 
-        bSeeProducts.setBackground(new java.awt.Color(0, 102, 102));
-        bSeeProducts.setForeground(new java.awt.Color(255, 255, 255));
-        bSeeProducts.setText("See");
+        bSeeMotorcycles.setBackground(new java.awt.Color(0, 102, 102));
+        bSeeMotorcycles.setForeground(new java.awt.Color(255, 255, 255));
+        bSeeMotorcycles.setText("See");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(183, Short.MAX_VALUE)
+                .addContainerGap(170, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(bSeeProducts)
+                        .addComponent(bSeeMotorcycles)
                         .addGap(195, 195, 195))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(168, 168, 168))))
+                        .addGap(160, 160, 160))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -64,7 +64,7 @@ public class CustomerMainView extends javax.swing.JFrame {
                 .addGap(116, 116, 116)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(bSeeProducts)
+                .addComponent(bSeeMotorcycles)
                 .addContainerGap(168, Short.MAX_VALUE))
         );
 
@@ -124,16 +124,16 @@ public class CustomerMainView extends javax.swing.JFrame {
         });
     }
 
-    public JButton getbSeeProducts() {
-        return bSeeProducts;
+    public JButton getbSeeMotorcycles() {
+        return bSeeMotorcycles;
     }
 
-    public void setbSeeProducts(JButton bSeeProducts) {
-        this.bSeeProducts = bSeeProducts;
+    public void setbSeeMotorcycles(JButton bSeeMotorcycles) {
+        this.bSeeMotorcycles = bSeeMotorcycles;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bSeeProducts;
+    private javax.swing.JButton bSeeMotorcycles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

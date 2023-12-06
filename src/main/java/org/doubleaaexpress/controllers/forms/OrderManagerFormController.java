@@ -41,7 +41,7 @@ public class OrderManagerFormController {
 
     public void signUpOrderManager() {
         long id = 0L;
-        String firstName = "", lastName = "", phoneNumber = "", email = "", password = "";
+        String firstName = "", lastName = "", phoneNumber = "", address = "", email = "", password = "";
         LocalDate birthDate = null, dateToLocalDate;
         boolean v;
         Date d = getOrderManagerFormView().getDcBirthDate().getDate();
@@ -57,6 +57,7 @@ public class OrderManagerFormController {
                 firstName = getOrderManagerFormView().getTfFirstName().getText();
                 lastName = getOrderManagerFormView().getTfLastName().getText();
                 phoneNumber = getOrderManagerFormView().getTfPhoneNumber().getText();
+                address = getOrderManagerFormView().getTfAddress().getText();
                 dateToLocalDate = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 birthDate = dateToLocalDate;
                 email = getOrderManagerFormView().getTfEmail().getText();
@@ -71,8 +72,8 @@ public class OrderManagerFormController {
         }
 
         if (v) {
-            OrderManager orderManager = new OrderManager(id, firstName, lastName, phoneNumber, birthDate, email,
-                    password);
+            OrderManager orderManager = new OrderManager(id, firstName, lastName, phoneNumber, address, birthDate,
+                    email, password);
             orderManagerDAO.add(orderManager);
             orderManager
                     .populateAdministratorTable(getRegisteredOrderManagersTableView().gettRegisteredOrderManagers());
@@ -84,6 +85,7 @@ public class OrderManagerFormController {
         getOrderManagerFormView().getTfFirstName().setText("");
         getOrderManagerFormView().getTfLastName().setText("");
         getOrderManagerFormView().getTfPhoneNumber().setText("");
+        getOrderManagerFormView().getTfAddress().setText("");
         getOrderManagerFormView().getDcBirthDate().setDate(null);
         getOrderManagerFormView().getTfEmail().setText("");
         getOrderManagerFormView().getPfPassword().setText("");
@@ -94,6 +96,7 @@ public class OrderManagerFormController {
                 getOrderManagerFormView().getTfFirstName().getText().isBlank() ||
                 getOrderManagerFormView().getTfLastName().getText().isBlank() ||
                 getOrderManagerFormView().getTfPhoneNumber().getText().isBlank() ||
+                getOrderManagerFormView().getTfAddress().getText().isBlank() ||
                 getOrderManagerFormView().getDcBirthDate().getDate() == null ||
                 getOrderManagerFormView().getTfEmail().getText().isBlank() ||
                 getOrderManagerFormView().getPfPassword().getPassword().length == 0;

@@ -1,6 +1,5 @@
 package org.doubleaaexpress.models;
 
-import org.doubleaaexpress.models.dao.AdministratorDAO;
 import org.doubleaaexpress.models.dao.CustomerDAO;
 
 import javax.swing.*;
@@ -14,9 +13,9 @@ public class Customer extends User {
         super();
     }
 
-    public Customer(Long id, String firstName, String lastName, String phoneNumber, LocalDate birthDate,
+    public Customer(Long id, String firstName, String lastName, String phoneNumber, String address, LocalDate birthDate,
             String email, String password) {
-        super(id, firstName, lastName, phoneNumber, birthDate, email, password);
+        super(id, firstName, lastName, phoneNumber, address, birthDate, email, password);
     }
 
     /**
@@ -33,6 +32,7 @@ public class Customer extends User {
         model.addColumn("First Name");
         model.addColumn("Last Name");
         model.addColumn("Phone Number");
+        model.addColumn("Address");
         model.addColumn("Birth Date");
         model.addColumn("Email");
 
@@ -43,8 +43,9 @@ public class Customer extends User {
             model.setValueAt(customer.getFirstName(), i, 1);
             model.setValueAt(customer.getLastName(), i, 2);
             model.setValueAt(customer.getPhoneNumber(), i, 3);
-            model.setValueAt(customer.getBirthDate(), i, 4);
-            model.setValueAt(customer.getEmail(), i, 5);
+            model.setValueAt(customer.getAddress(), i, 4);
+            model.setValueAt(customer.getBirthDate(), i, 5);
+            model.setValueAt(customer.getEmail(), i, 6);
         }
         table.setModel(model);
     }

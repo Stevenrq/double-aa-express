@@ -41,7 +41,7 @@ public class AdministratorFormController {
 
     public void signUpAdministrator() {
         long id = 0L;
-        String firstName = "", lastName = "", phoneNumber = "", email = "", password = "";
+        String firstName = "", lastName = "", phoneNumber = "", address = "", email = "", password = "";
         LocalDate birthDate = null, dateToLocalDate;
         boolean v;
         Date d = getAdministratorFormView().getDcBirthDate().getDate();
@@ -59,6 +59,7 @@ public class AdministratorFormController {
                 firstName = getAdministratorFormView().getTfFirstName().getText();
                 lastName = getAdministratorFormView().getTfLastName().getText();
                 phoneNumber = getAdministratorFormView().getTfPhoneNumber().getText();
+                address = getAdministratorFormView().getTfAddress().getText();
                 dateToLocalDate = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 birthDate = dateToLocalDate;
                 email = getAdministratorFormView().getTfEmail().getText();
@@ -73,8 +74,8 @@ public class AdministratorFormController {
         }
 
         if (v) {
-            Administrator administrator = new Administrator(id, firstName, lastName, phoneNumber, birthDate, email,
-                    password);
+            Administrator administrator = new Administrator(id, firstName, lastName, phoneNumber, address, birthDate,
+                    email, password);
             administratorDAO.add(administrator);
             administrator
                     .populateAdministratorTable(getRegisteredAdministratorsTableView().gettRegisteredAdministrators());
@@ -86,6 +87,7 @@ public class AdministratorFormController {
         getAdministratorFormView().getTfFirstName().setText("");
         getAdministratorFormView().getTfLastName().setText("");
         getAdministratorFormView().getTfPhoneNumber().setText("");
+        getAdministratorFormView().getTfAddress().setText("");
         getAdministratorFormView().getDcBirthDate().setDate(null);
         getAdministratorFormView().getTfEmail().setText("");
         getAdministratorFormView().getPfPassword().setText("");
@@ -96,6 +98,7 @@ public class AdministratorFormController {
                 getAdministratorFormView().getTfFirstName().getText().isBlank() ||
                 getAdministratorFormView().getTfLastName().getText().isBlank() ||
                 getAdministratorFormView().getTfPhoneNumber().getText().isBlank() ||
+                getAdministratorFormView().getTfAddress().getText().isBlank() ||
                 getAdministratorFormView().getDcBirthDate().getDate() == null ||
                 getAdministratorFormView().getTfEmail().getText().isBlank() ||
                 getAdministratorFormView().getPfPassword().getPassword().length == 0;

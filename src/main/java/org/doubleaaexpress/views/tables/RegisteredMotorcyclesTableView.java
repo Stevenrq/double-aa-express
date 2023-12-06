@@ -4,6 +4,7 @@
  */
 package org.doubleaaexpress.views.tables;
 
+import javax.swing.JButton;
 import javax.swing.JTable;
 
 /**
@@ -30,6 +31,7 @@ public class RegisteredMotorcyclesTableView extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tRegisteredMotorcycles = new javax.swing.JTable();
+        bBuyMotorcycle = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -38,11 +40,11 @@ public class RegisteredMotorcyclesTableView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Name", "Price", "Model", "Year", "Plate Number", "Status"
+                "Id", "Name", "Price", "Quantity", "Model", "Year", "Plate Number", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.Short.class, java.lang.String.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.String.class, java.lang.Short.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -50,6 +52,10 @@ public class RegisteredMotorcyclesTableView extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tRegisteredMotorcycles);
+
+        bBuyMotorcycle.setBackground(new java.awt.Color(0, 153, 153));
+        bBuyMotorcycle.setForeground(new java.awt.Color(255, 255, 255));
+        bBuyMotorcycle.setText("Buy Selected Motorcycle");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -59,13 +65,19 @@ public class RegisteredMotorcyclesTableView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bBuyMotorcycle)
+                .addGap(315, 315, 315))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(bBuyMotorcycle, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -115,8 +127,17 @@ public class RegisteredMotorcyclesTableView extends javax.swing.JFrame {
     public void settRegisteredMotorcycles(JTable tRegisteredMotorcycles) {
         this.tRegisteredMotorcycles = tRegisteredMotorcycles;
     }
+
+    public JButton getbBuyMotorcycle() {
+        return bBuyMotorcycle;
+    }
+
+    public void setbBuyMotorcycle(JButton bBuyMotorcycle) {
+        this.bBuyMotorcycle = bBuyMotorcycle;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bBuyMotorcycle;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tRegisteredMotorcycles;
     // End of variables declaration//GEN-END:variables

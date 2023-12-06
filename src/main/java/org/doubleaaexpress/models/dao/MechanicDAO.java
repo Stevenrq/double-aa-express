@@ -14,8 +14,7 @@ public class MechanicDAO {
 
     public void addMechanic(Mechanic mechanic) {
         PreparedStatement preparedStatement;
-        String sql = "INSERT INTO mechanics (mechanic_id, first_Name, last_name, phone_number, birth_date, email, password) " +
-                "VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO mechanics (mechanic_id, first_Name, last_name, phone_number, address, birth_date, email, password) VALUES (?,?,?,?,?,?,?,?)";
         Date birthDate = Date.valueOf(mechanic.getBirthDate());
 
         try {
@@ -24,9 +23,10 @@ public class MechanicDAO {
             preparedStatement.setString(2, mechanic.getFirstName());
             preparedStatement.setString(3, mechanic.getLastName());
             preparedStatement.setString(4, mechanic.getPhoneNumber());
-            preparedStatement.setDate(5, birthDate);
-            preparedStatement.setString(6, mechanic.getEmail());
-            preparedStatement.setString(7, mechanic.getPassword());
+            preparedStatement.setString(5, mechanic.getAddress());
+            preparedStatement.setDate(6, birthDate);
+            preparedStatement.setString(7, mechanic.getEmail());
+            preparedStatement.setString(8, mechanic.getPassword());
             preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println("Error adding mechanic: " + e.getMessage());
@@ -48,6 +48,7 @@ public class MechanicDAO {
                 mechanic.setFirstName(resultSet.getString("first_name"));
                 mechanic.setLastName(resultSet.getString("last_name"));
                 mechanic.setPhoneNumber(resultSet.getString("phone_number"));
+                mechanic.setAddress(resultSet.getString("address"));
                 mechanic.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 mechanic.setEmail(resultSet.getString("email"));
                 mechanic.setPassword(resultSet.getString("password"));
@@ -61,8 +62,7 @@ public class MechanicDAO {
 
     public void updateMechanic(Mechanic mechanic) {
         PreparedStatement ps;
-        String sql = "UPDATE mechanics SET first_name = ?, last_name = ?, phone_number = ?, birth_date = ?, email = ?, " +
-                "password = ? WHERE mechanic_id = ?";
+        String sql = "UPDATE mechanics SET first_name = ?, last_name = ?, phone_number = ?, address = ?, birth_date = ?, email = ?, password = ? WHERE mechanic_id = ?";
         Date birthDate = Date.valueOf(mechanic.getBirthDate());
 
         try {
@@ -70,10 +70,11 @@ public class MechanicDAO {
             ps.setString(1, mechanic.getFirstName());
             ps.setString(2, mechanic.getLastName());
             ps.setString(3, mechanic.getPhoneNumber());
-            ps.setDate(4, birthDate);
-            ps.setString(5, mechanic.getEmail());
-            ps.setString(6, mechanic.getPassword());
-            ps.setLong(7, mechanic.getId());
+            ps.setString(4, mechanic.getAddress());
+            ps.setDate(5, birthDate);
+            ps.setString(6, mechanic.getEmail());
+            ps.setString(7, mechanic.getPassword());
+            ps.setLong(8, mechanic.getId());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error updating mechanic: " + e.getMessage());
@@ -108,6 +109,7 @@ public class MechanicDAO {
                 mechanic.setFirstName(resultSet.getString("first_name"));
                 mechanic.setLastName(resultSet.getString("last_name"));
                 mechanic.setPhoneNumber(resultSet.getString("phone_number"));
+                mechanic.setAddress(resultSet.getString("address"));
                 mechanic.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 mechanic.setEmail(resultSet.getString("email"));
                 mechanic.setPassword(resultSet.getString("password"));

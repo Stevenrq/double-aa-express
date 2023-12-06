@@ -38,11 +38,11 @@ public class RegisteredCustomersTableView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "First Name", "Last Name", "Phone Number", "Birth Date", "Email"
+                "Id", "First Name", "Last Name", "Phone Number", "Address", "Birth Date", "Email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {

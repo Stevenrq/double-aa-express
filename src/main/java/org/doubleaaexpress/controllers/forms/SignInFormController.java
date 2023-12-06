@@ -1,4 +1,4 @@
-package org.doubleaaexpress.controllers;
+package org.doubleaaexpress.controllers.forms;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,26 +17,26 @@ import org.doubleaaexpress.views.CustomerMainView;
 import org.doubleaaexpress.views.MainView;
 import org.doubleaaexpress.views.OrderManagerMainView;
 import org.doubleaaexpress.views.forms.OrderManagerFormView;
-import org.doubleaaexpress.views.forms.SignInView;
+import org.doubleaaexpress.views.forms.SignInFormView;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class SignInController {
+public class SignInFormController {
 
     private Administrator administrator;
     private OrderManager orderManager;
     private Customer customer;
 
     private MainView mainView;
-    private SignInView signInView;
+    private SignInFormView sigInFormView;
     private AdministratorMainView administratorMainView;
     private OrderManagerMainView orderManagerMainView;
     private CustomerMainView customerMainView;
     private OrderManagerFormView orderManagerFormView;
 
-    public SignInController(Administrator administrator, OrderManager orderManager, Customer customer,
-            MainView mainView, SignInView signInView, AdministratorMainView administratorMainView,
+    public SignInFormController(Administrator administrator, OrderManager orderManager, Customer customer,
+            MainView mainView, SignInFormView sigInFormView, AdministratorMainView administratorMainView,
             OrderManagerMainView orderManagerMainView, CustomerMainView customerMainView,
             OrderManagerFormView orderManagerFormView) {
 
@@ -45,7 +45,7 @@ public class SignInController {
         this.customer = customer;
 
         this.mainView = mainView;
-        this.signInView = signInView;
+        this.sigInFormView = sigInFormView;
         this.administratorMainView = administratorMainView;
         this.orderManagerMainView = orderManagerMainView;
         this.customerMainView = customerMainView;
@@ -58,33 +58,38 @@ public class SignInController {
         GenericUserDAO<OrderManager> orderManagerDAO = abstractFactoryDAO.getOrderManagerDAO();
         GenericUserDAO<Customer> customerDAO = abstractFactoryDAO.getCustomerDAO();
 
-        String email = getSignInView().getTfEmail().getText();
-        String password = new String(getSignInView().getTfPassword().getPassword());
+        String email = getSigInFormView().getTfEmail().getText();
+        String password = new String(getSigInFormView().getTfPassword().getPassword());
 
         if (administratorDAO.get(email, password)) {
-            getSignInView().setVisible(false);
-            getSignInView().getTfEmail().setText("");
-            getSignInView().getTfPassword().setText("");
-            getSignInView().getTfEmail().requestFocus();
+            getSigInFormView().setVisible(false);
+            getSigInFormView().getTfEmail().setText("");
+            getSigInFormView().getTfPassword().setText("");
+            getSigInFormView().getTfEmail().requestFocus();
             getAdministratorMainView().setVisible(true);
 
         } else if (orderManagerDAO.get(email, password)) {
-            getSignInView().setVisible(false);
-            getSignInView().getTfEmail().setText("");
-            getSignInView().getTfPassword().setText("");
-            getSignInView().getTfEmail().requestFocus();
+            getSigInFormView().setVisible(false);
+            getSigInFormView().getTfEmail().setText("");
+            getSigInFormView().getTfPassword().setText("");
+            getSigInFormView().getTfEmail().requestFocus();
             getOrderManagerMainView().setVisible(true);
 
         } else if (customerDAO.get(email, password)) {
-            getSignInView().setVisible(false);
-            getSignInView().getTfEmail().setText("");
-            getSignInView().getTfPassword().setText("");
-            getSignInView().getTfEmail().requestFocus();
+            // the logged in user is assigned
+            customer = customerDAO.getUser(email, password);
+
+            getSigInFormView().setVisible(false);
+            getSigInFormView().getTfEmail().setText("");
+            getSigInFormView().getTfPassword().setText("");
+            getSigInFormView().getTfEmail().requestFocus();
             getCustomerMainView().setVisible(true);
         } else if (email.isBlank() || password.isBlank()) {
             JOptionPane.showMessageDialog(null, "You must fill out all fields");
         } else {
-            JOptionPane.showMessageDialog(null, "Incorrect email or password");
+            JOptionPane.showMessageDialog(null, "Incorrect email or password", "Error", JOptionPane.ERROR_MESSAGE);
+            getSigInFormView().getTfPassword().setText("");
+            getSigInFormView().getTfPassword().requestFocus();
         }
     }
 }

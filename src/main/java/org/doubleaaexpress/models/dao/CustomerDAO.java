@@ -21,9 +21,7 @@ public class CustomerDAO implements GenericUserDAO<Customer> {
     @Override
     public void add(Customer customer) {
         PreparedStatement preparedStatement;
-        String sql = "INSERT INTO customers (customer_id, first_Name, last_name, phone_number, birth_date, email, password) "
-                +
-                "VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO customers (customer_id, first_Name, last_name, phone_number, address, birth_date, email, password) VALUES (?,?,?,?,?,?,?,?)";
         Date birthDate = Date.valueOf(customer.getBirthDate());
 
         try {
@@ -32,9 +30,10 @@ public class CustomerDAO implements GenericUserDAO<Customer> {
             preparedStatement.setString(2, customer.getFirstName());
             preparedStatement.setString(3, customer.getLastName());
             preparedStatement.setString(4, customer.getPhoneNumber());
-            preparedStatement.setDate(5, birthDate);
-            preparedStatement.setString(6, customer.getEmail());
-            preparedStatement.setString(7, customer.getPassword());
+            preparedStatement.setString(5, customer.getAddress());
+            preparedStatement.setDate(6, birthDate);
+            preparedStatement.setString(7, customer.getEmail());
+            preparedStatement.setString(8, customer.getPassword());
             preparedStatement.execute();
         } catch (SQLException e) {
             System.out.println("Error adding customer: " + e.getMessage());
@@ -57,6 +56,7 @@ public class CustomerDAO implements GenericUserDAO<Customer> {
                 customer.setFirstName(resultSet.getString("first_name"));
                 customer.setLastName(resultSet.getString("last_name"));
                 customer.setPhoneNumber(resultSet.getString("phone_number"));
+                customer.setAddress(resultSet.getString("address"));
                 customer.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 customer.setEmail(resultSet.getString("email"));
                 customer.setPassword(resultSet.getString("password"));
@@ -71,9 +71,7 @@ public class CustomerDAO implements GenericUserDAO<Customer> {
     @Override
     public void update(Customer customer) {
         PreparedStatement ps;
-        String sql = "UPDATE customers SET first_name = ?, last_name = ?, phone_number = ?, birth_date = ?, email = ?, "
-                +
-                "password = ? WHERE customer_id = ?";
+        String sql = "UPDATE customers SET first_name = ?, last_name = ?, phone_number = ?, address = ?, birth_date = ?, email = ?, password = ? WHERE customer_id = ?";
         Date birthDate = Date.valueOf(customer.getBirthDate());
 
         try {
@@ -81,10 +79,11 @@ public class CustomerDAO implements GenericUserDAO<Customer> {
             ps.setString(1, customer.getFirstName());
             ps.setString(2, customer.getLastName());
             ps.setString(3, customer.getPhoneNumber());
-            ps.setDate(4, birthDate);
-            ps.setString(5, customer.getEmail());
-            ps.setString(6, customer.getPassword());
-            ps.setLong(7, customer.getId());
+            ps.setString(4, customer.getAddress());
+            ps.setDate(5, birthDate);
+            ps.setString(6, customer.getEmail());
+            ps.setString(7, customer.getPassword());
+            ps.setLong(8, customer.getId());
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error updating customer: " + e.getMessage());
@@ -121,6 +120,7 @@ public class CustomerDAO implements GenericUserDAO<Customer> {
                 customer.setFirstName(resultSet.getString("first_name"));
                 customer.setLastName(resultSet.getString("last_name"));
                 customer.setPhoneNumber(resultSet.getString("phone_number"));
+                customer.setAddress(resultSet.getString("address"));
                 customer.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 customer.setEmail(resultSet.getString("email"));
                 customer.setPassword(resultSet.getString("password"));
@@ -143,14 +143,15 @@ public class CustomerDAO implements GenericUserDAO<Customer> {
             preparedStatement.setString(1, customer.getEmail());
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                if (customer.getPassword().equals(resultSet.getString(7))) {
+                if (customer.getPassword().equals(resultSet.getString(8))) {
                     customer.setId(resultSet.getLong(1));
                     customer.setFirstName(resultSet.getString(2));
                     customer.setLastName(resultSet.getString(3));
                     customer.setPhoneNumber(resultSet.getString(4));
-                    customer.setBirthDate(resultSet.getDate(5).toLocalDate());
-                    customer.setEmail(resultSet.getString(6));
-                    customer.setPassword(resultSet.getString(7));
+                    customer.setAddress(resultSet.getString(5));
+                    customer.setBirthDate(resultSet.getDate(6).toLocalDate());
+                    customer.setEmail(resultSet.getString(7));
+                    customer.setPassword(resultSet.getString(8));
                     return true;
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect Password");
@@ -183,6 +184,7 @@ public class CustomerDAO implements GenericUserDAO<Customer> {
                 customer.setFirstName(resultSet.getString("first_name"));
                 customer.setLastName(resultSet.getString("last_name"));
                 customer.setPhoneNumber(resultSet.getString("phone_number"));
+                customer.setAddress(resultSet.getString("address"));
                 customer.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
                 customer.setEmail(resultSet.getString("email"));
                 customer.setPassword(resultSet.getString("password"));
@@ -194,5 +196,33 @@ public class CustomerDAO implements GenericUserDAO<Customer> {
             System.out.println("Error getting customer: " + e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public Customer getUser(String email, String password) {
+        String sql = "SELECT * FROM customers WHERE email = ? and  password = ?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        Customer customer = new Customer();
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                customer.setId(resultSet.getLong("customer_id"));
+                customer.setFirstName(resultSet.getString("first_name"));
+                customer.setLastName(resultSet.getString("last_name"));
+                customer.setPhoneNumber(resultSet.getString("phone_number"));
+                customer.setAddress(resultSet.getString("address"));
+                customer.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
+                customer.setEmail(resultSet.getString("email"));
+                customer.setPassword(resultSet.getString("password"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting customer: " + e.getMessage());
+        }
+        return customer;
     }
 }
