@@ -169,7 +169,7 @@ public class CustomerDAO implements GenericUserDAO<Customer> {
 
     @Override
     public boolean get(String email, String password) {
-        String sql = "SELECT * FROM customers WHERE email = ? and  password = ?";
+        String sql = "SELECT * FROM customers WHERE email = ? AND password = ?";
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         Customer customer = new Customer();

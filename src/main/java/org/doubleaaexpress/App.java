@@ -1,11 +1,12 @@
 package org.doubleaaexpress;
 
 import org.doubleaaexpress.controllers.AdministratorMainController;
-import org.doubleaaexpress.controllers.CustomerMainController;
+import org.doubleaaexpress.controllers.BuyerMainController;
 import org.doubleaaexpress.controllers.MainController;
 import org.doubleaaexpress.controllers.OrderController;
 import org.doubleaaexpress.controllers.forms.SignInFormController;
 import org.doubleaaexpress.controllers.forms.AdministratorFormController;
+import org.doubleaaexpress.controllers.forms.BuyerFormController;
 import org.doubleaaexpress.controllers.forms.CustomerFormController;
 import org.doubleaaexpress.controllers.forms.MotorcycleFormController;
 import org.doubleaaexpress.controllers.forms.OrderManagerFormController;
@@ -13,6 +14,7 @@ import org.doubleaaexpress.models.*;
 import org.doubleaaexpress.views.*;
 import org.doubleaaexpress.views.forms.*;
 import org.doubleaaexpress.views.tables.RegisteredAdministratorsTableView;
+import org.doubleaaexpress.views.tables.RegisteredBuyersTableView;
 import org.doubleaaexpress.views.tables.RegisteredCustomersTableView;
 import org.doubleaaexpress.views.tables.RegisteredMotorcyclesTableView;
 import org.doubleaaexpress.views.tables.RegisteredOrderManagersTableView;
@@ -33,10 +35,10 @@ public class App {
 
                 // views
                 MainView mainView = new MainView();
-                SignInFormView signInView = new SignInFormView();
+                SignInFormView signInFormView = new SignInFormView();
                 AdministratorMainView administratorMainView = new AdministratorMainView();
                 OrderManagerMainView orderManagerMainView = new OrderManagerMainView();
-                CustomerMainView customerMainView = new CustomerMainView();
+                BuyerMainView customerMainView = new BuyerMainView();
                 AdministratorFormView administratorFormView = new AdministratorFormView();
                 RegisteredUsersView registeredUsersView = new RegisteredUsersView();
                 BuyerFormView buyerFormView = new BuyerFormView();
@@ -50,6 +52,7 @@ public class App {
                 RegisteredCustomersTableView registeredCustomersTableView = new RegisteredCustomersTableView();
                 RegisteredMotorcyclesTableView registeredMotorcyclesTableView = new RegisteredMotorcyclesTableView();
                 RegisteredOrdersTableView registeredOrdersTableView = new RegisteredOrdersTableView();
+                RegisteredBuyersTableView registeredBuyersTableView = new RegisteredBuyersTableView();
 
                 // controllers
                 AdministratorFormController administratorFormController = new AdministratorFormController(administrator,
@@ -62,28 +65,32 @@ public class App {
                                 customerFormView, registeredCustomersTableView);
 
                 SignInFormController signInController = new SignInFormController(administrator, orderManager, customer,
-                                mainView, signInView, administratorMainView, orderManagerMainView, customerMainView,
+                                buyer,
+                                mainView, signInFormView, administratorMainView, orderManagerMainView, customerMainView,
                                 orderManagerFormView);
 
                 AdministratorMainController administratorMainController = new AdministratorMainController(administrator,
-                                orderManager, customer, motorcycle, mainView, administratorMainView,
+                                orderManager, customer, motorcycle, buyer, mainView, administratorMainView,
                                 registeredUsersView,
                                 registeredAdministratorsTableView, registeredOrderManagersTableView,
                                 registeredCustomersTableView,
-                                registeredMotorcyclesTableView);
+                                registeredMotorcyclesTableView, registeredBuyersTableView);
 
-                CustomerMainController customerMainController = new CustomerMainController(customer, motorcycle,
+                BuyerMainController buyerMainController = new BuyerMainController(buyer, motorcycle,
                                 mainView,
                                 customerMainView, registeredMotorcyclesTableView);
 
                 MotorcycleFormController motorcycleFormController = new MotorcycleFormController(administrator,
                                 motorcycle, administratorMainView, motorcycleFormView, registeredMotorcyclesTableView);
 
-                OrderController orderController = new OrderController(customer, motorcycle,
+                OrderController orderController = new OrderController(buyer, motorcycle,
                                 registeredMotorcyclesTableView, registeredOrdersTableView);
 
+                BuyerFormController buyerFormController = new BuyerFormController(buyer, mainView, buyerFormView,
+                                registeredBuyersTableView);
+
                 MainController mainController = new MainController(administrator, orderManager, buyer, customer,
-                                mechanic, seller, mainView, signInView, administratorFormView, buyerFormView,
+                                mechanic, seller, mainView, signInFormView, administratorFormView, buyerFormView,
                                 customerFormView, mechanicFormView,
                                 sellerFormView, motorcycleFormView, orderManagerFormView,
                                 registeredAdministratorsTableView,
@@ -92,7 +99,7 @@ public class App {
                                 administratorFormController,
                                 customerFormController, signInController,
                                 administratorMainController, motorcycleFormController, orderManagerFormController,
-                                customerMainController, orderController);
+                                buyerMainController, orderController, buyerFormController);
 
                 mainController.showMainView();
         }

@@ -2,6 +2,7 @@ package org.doubleaaexpress.controllers;
 
 import org.doubleaaexpress.controllers.forms.SignInFormController;
 import org.doubleaaexpress.controllers.forms.AdministratorFormController;
+import org.doubleaaexpress.controllers.forms.BuyerFormController;
 import org.doubleaaexpress.controllers.forms.CustomerFormController;
 import org.doubleaaexpress.controllers.forms.MotorcycleFormController;
 import org.doubleaaexpress.controllers.forms.OrderManagerFormController;
@@ -12,7 +13,7 @@ import org.doubleaaexpress.models.Mechanic;
 import org.doubleaaexpress.models.OrderManager;
 import org.doubleaaexpress.models.Seller;
 import org.doubleaaexpress.views.AdministratorMainView;
-import org.doubleaaexpress.views.CustomerMainView;
+import org.doubleaaexpress.views.BuyerMainView;
 import org.doubleaaexpress.views.MainView;
 import org.doubleaaexpress.views.RegisteredUsersView;
 import org.doubleaaexpress.views.forms.AdministratorFormView;
@@ -56,7 +57,7 @@ public class MainController implements ActionListener {
     private OrderManagerFormView orderManagerFormView;
     private RegisteredAdministratorsTableView registeredAdministratorsTableView;
     private AdministratorMainView administratorMainView;
-    private CustomerMainView customerMainView;
+    private BuyerMainView buyerMainView;
     private RegisteredUsersView registeredUsersView;
     private RegisteredMotorcyclesTableView registeredMotorcyclesTableView;
 
@@ -66,8 +67,9 @@ public class MainController implements ActionListener {
     private AdministratorMainController administratorMainController;
     private MotorcycleFormController motorcycleFormController;
     private OrderManagerFormController orderManagerFormController;
-    private CustomerMainController customerMainController;
+    private BuyerMainController buyerMainController;
     private OrderController orderController;
+    private BuyerFormController buyerFormController;
 
     public MainController(Administrator administrator, OrderManager orderManager, Buyer buyer, Customer customer,
             Mechanic mechanic, Seller seller, MainView mainView, SignInFormView signInView,
@@ -76,13 +78,14 @@ public class MainController implements ActionListener {
             SellerFormView sellerFormView, MotorcycleFormView motorcycleFormView,
             OrderManagerFormView orderManagerFormView,
             RegisteredAdministratorsTableView registeredAdministratorsTableView,
-            AdministratorMainView administratorMainView, CustomerMainView customerMainView,
+            AdministratorMainView administratorMainView, BuyerMainView buyerMainView,
             RegisteredUsersView registeredUsersView, RegisteredMotorcyclesTableView registeredMotorcyclesTableView,
             AdministratorFormController administratorFormController,
             CustomerFormController customerFormController, SignInFormController signInController,
             AdministratorMainController administratorMainController,
             MotorcycleFormController motorcycleFormController, OrderManagerFormController orderManagerFormController,
-            CustomerMainController customerMainController, OrderController orderController) {
+            BuyerMainController buyerMainController, OrderController orderController,
+            BuyerFormController buyerFormController) {
 
         this.administrator = administrator;
         this.orderManager = orderManager;
@@ -104,14 +107,15 @@ public class MainController implements ActionListener {
         this.customerFormController = customerFormController;
         this.signInController = signInController;
         this.administratorMainView = administratorMainView;
-        this.customerMainView = customerMainView;
+        this.buyerMainView = buyerMainView;
         this.registeredUsersView = registeredUsersView;
         this.registeredMotorcyclesTableView = registeredMotorcyclesTableView;
         this.administratorMainController = administratorMainController;
         this.motorcycleFormController = motorcycleFormController;
         this.orderManagerFormController = orderManagerFormController;
-        this.customerMainController = customerMainController;
+        this.buyerMainController = buyerMainController;
         this.orderController = orderController;
+        this.buyerFormController = buyerFormController;
 
         // main view
         this.mainView.getbSignIn().addActionListener(this);
@@ -128,6 +132,7 @@ public class MainController implements ActionListener {
         this.customerFormView.getbSignUp().addActionListener(this);
         this.motorcycleFormView.getbRegister().addActionListener(this);
         this.orderManagerFormView.getbSignUp().addActionListener(this);
+        this.buyerFormView.getbSignUp().addActionListener(this);
 
         // sign in view
         this.signInView.getbSignIn().addActionListener(this);
@@ -139,7 +144,7 @@ public class MainController implements ActionListener {
         this.registeredUsersView.getbSeeRegisteredUsers().addActionListener(this);
 
         // customer main view
-        this.getCustomerMainView().getbSeeMotorcycles().addActionListener(this);
+        this.getBuyerMainView().getbSeeMotorcycles().addActionListener(this);
 
         this.registeredMotorcyclesTableView.getbBuyMotorcycle().addActionListener(this);
     }
@@ -217,24 +222,28 @@ public class MainController implements ActionListener {
 
         // sign up
         if (e.getSource() == getAdministratorFormView().getbSignUp()) {
-            getAdministratorFormController().signUpAdministrator();
+            administratorFormController.signUpAdministrator();
         }
 
         if (e.getSource() == getOrderManagerFormView().getbSignUp()) {
-            getOrderManagerFormController().signUpOrderManager();
+            orderManagerFormController.signUpOrderManager();
         }
 
         if (e.getSource() == getCustomerFormView().getbSignUp()) {
-            getCustomerFormController().signUpCustomer();
+            customerFormController.signUpCustomer();
+        }
+
+        if (e.getSource() == getBuyerFormView().getbSignUp()) {
+            buyerFormController.signUpBuyer();
         }
 
         if (e.getSource() == getMotorcycleFormView().getbRegister()) {
-            getMotorcycleFormController().signUpMotorcycle();
+            motorcycleFormController.signUpMotorcycle();
         }
 
         // sign in
         if (e.getSource() == getSignInView().getbSignIn()) {
-            getSignInController().signIn();
+            signInController.signIn();
         }
 
         // show registered users view
@@ -247,13 +256,13 @@ public class MainController implements ActionListener {
             showRegisteredUsersTables();
         }
 
-        if (e.getSource() == getCustomerMainView().getbSeeMotorcycles()) {
-            getCustomerMainController().showRegisteredMotorcyclesTable();
+        if (e.getSource() == getBuyerMainView().getbSeeMotorcycles()) {
+            buyerMainController.showRegisteredMotorcyclesTable();
         }
 
         // register the order
         if (e.getSource() == getRegisteredMotorcyclesTableView().getbBuyMotorcycle()) {
-            getOrderController().registerOrder();
+            orderController.registerOrder();
         }
     }
 }

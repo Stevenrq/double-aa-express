@@ -206,7 +206,7 @@ public class AdministratorDAO implements GenericUserDAO<Administrator> {
 
     @Override
     public Administrator getUser(String email, String password) {
-        String sql = "SELECT * FROM administrators WHERE email = ? and  password = ?";
+        String sql = "SELECT * FROM administrators WHERE email = ? AND password = ?";
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         Administrator administrator = new Administrator();

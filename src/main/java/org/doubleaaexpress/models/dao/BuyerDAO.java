@@ -1,6 +1,7 @@
 package org.doubleaaexpress.models.dao;
 
 import org.doubleaaexpress.models.Buyer;
+import org.doubleaaexpress.models.dao.abstractfactory.GenericUserDAO;
 import org.doubleaaexpress.util.DBConnection;
 
 import javax.swing.*;
@@ -8,11 +9,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuyerDAO {
+public class BuyerDAO implements GenericUserDAO<Buyer> {
 
     private final Connection connection = DBConnection.getInstance().getConnection();
 
-    public void addBuyer(Buyer buyer) {
+    @Override
+    public void add(Buyer buyer) {
         PreparedStatement preparedStatement;
         String sql = "INSERT INTO buyers (buyer_id, first_Name, last_name, phone_number, address, birth_date, email, password) VALUES (?,?,?,?,?,?,?,?)";
         Date birthDate = Date.valueOf(buyer.getBirthDate());
@@ -33,7 +35,8 @@ public class BuyerDAO {
         }
     }
 
-    public Buyer getBuyerById(Long id) {
+    @Override
+    public Buyer getById(Long id) {
         String sql = "SELECT * FROM buyers WHERE buyer_id = ?";
         PreparedStatement preparedStatement;
         ResultSet resultSet;
@@ -60,7 +63,8 @@ public class BuyerDAO {
         return buyer;
     }
 
-    public void updateBuyer(Buyer buyer) {
+    @Override
+    public void update(Buyer buyer) {
         PreparedStatement ps;
         String sql = "UPDATE buyers SET first_name = ?, last_name = ?, phone_number = ?, address = ?, birth_date = ?, email = ?, password = ? WHERE buyer_id = ?";
         Date birthDate = Date.valueOf(buyer.getBirthDate());
@@ -81,7 +85,8 @@ public class BuyerDAO {
         }
     }
 
-    public void deleteBuyer(Long id) {
+    @Override
+    public void delete(Long id) {
         PreparedStatement preparedStatement;
         String sql = "DELETE FROM buyers WHERE buyer_id = ?";
 
@@ -94,7 +99,8 @@ public class BuyerDAO {
         }
     }
 
-    public List<Buyer> getAllBuyers() {
+    @Override
+    public List<Buyer> getAll() {
         PreparedStatement preparedStatement;
         String sql = "SELECT * FROM buyers";
         ResultSet resultSet;
@@ -119,5 +125,101 @@ public class BuyerDAO {
             System.out.println("Error getting all buyers: " + e.getMessage());
         }
         return buyers;
+    }
+
+    @Override
+    public boolean get(String email, String password) {
+        String sql = "SELECT * FROM buyers WHERE email = ? and  password = ?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        Buyer buyer = new Buyer();
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                buyer.setId(resultSet.getLong("buyer_id"));
+                buyer.setFirstName(resultSet.getString("first_name"));
+                buyer.setLastName(resultSet.getString("last_name"));
+                buyer.setPhoneNumber(resultSet.getString("phone_number"));
+                buyer.setAddress(resultSet.getString("address"));
+                buyer.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
+                buyer.setEmail(resultSet.getString("email"));
+                buyer.setPassword(resultSet.getString("password"));
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting buyer: " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public Buyer getUser(String email, String password) {
+        String sql = "SELECT * FROM buyers WHERE email = ? AND password = ?";
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        Buyer buyer = new Buyer();
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                buyer.setId(resultSet.getLong("buyer_id"));
+                buyer.setFirstName(resultSet.getString("first_name"));
+                buyer.setLastName(resultSet.getString("last_name"));
+                buyer.setPhoneNumber(resultSet.getString("phone_number"));
+                buyer.setAddress(resultSet.getString("address"));
+                buyer.setBirthDate(resultSet.getDate("birth_date").toLocalDate());
+                buyer.setEmail(resultSet.getString("email"));
+                buyer.setPassword(resultSet.getString("password"));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting buyer: " + e.getMessage());
+        }
+        return buyer;
+    }
+
+    @Override
+    public boolean signIn(Buyer buyer) {
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        String sql = "SELECT * FROM buyers WHERE email = ?";
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, buyer.getEmail());
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                if (buyer.getPassword().equals(resultSet.getString(8))) {
+                    buyer.setId(resultSet.getLong(1));
+                    buyer.setFirstName(resultSet.getString(2));
+                    buyer.setLastName(resultSet.getString(3));
+                    buyer.setPhoneNumber(resultSet.getString(4));
+                    buyer.setAddress(resultSet.getString(5));
+                    buyer.setBirthDate(resultSet.getDate(6).toLocalDate());
+                    buyer.setEmail(resultSet.getString(7));
+                    buyer.setPassword(resultSet.getString(8));
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect Password");
+                    return false;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "The buyer is not registered");
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("failed to sign in: " + e.getMessage());
+            return false;
+        }
     }
 }

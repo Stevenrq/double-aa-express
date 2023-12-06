@@ -1,9 +1,11 @@
 package org.doubleaaexpress.models.dao.abstractfactory;
 
 import org.doubleaaexpress.models.Administrator;
+import org.doubleaaexpress.models.Buyer;
 import org.doubleaaexpress.models.Customer;
 import org.doubleaaexpress.models.OrderManager;
 import org.doubleaaexpress.models.dao.AdministratorDAO;
+import org.doubleaaexpress.models.dao.BuyerDAO;
 import org.doubleaaexpress.models.dao.CustomerDAO;
 import org.doubleaaexpress.models.dao.OrderManagerDAO;
 
@@ -33,5 +35,10 @@ public class ConcreteAbstractFactoryDAO extends AbstractFactoryDAO {
     @Override
     public GenericUserDAO<Customer> getCustomerDAO() {
         return new CustomerDAO();
+    }
+
+    @Override
+    public GenericUserDAO<Buyer> getBuyerDAO() {
+        return new BuyerDAO();
     }
 }

@@ -18,7 +18,7 @@ public class Order {
 
     private Long id;
     private LocalDate date;
-    private Customer customer;
+    private Buyer buyer;
     private String address;
     private Product product;
     private Integer quantity;
@@ -38,7 +38,7 @@ public class Order {
 
         model.addColumn("Id");
         model.addColumn("Date");
-        model.addColumn("Customer");
+        model.addColumn("Buyer");
         model.addColumn("Address");
         model.addColumn("Product");
         model.addColumn("Quantity");
@@ -52,7 +52,7 @@ public class Order {
             model.addRow(new Object[] {});
             model.setValueAt(order.getId(), i, 0);
             model.setValueAt(order.getDate(), i, 1);
-            model.setValueAt(order.getCustomer().getFirstName() + " " + order.getCustomer().getLastName(), i, 2);
+            model.setValueAt(order.getBuyer().getFirstName() + " " + order.getBuyer().getLastName(), i, 2);
             model.setValueAt(order.getAddress(), i, 3);
             model.setValueAt(order.getProduct().getName(), i, 4);
             model.setValueAt(order.getQuantity(), i, 5);

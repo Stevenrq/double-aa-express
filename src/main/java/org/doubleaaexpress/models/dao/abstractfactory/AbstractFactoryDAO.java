@@ -1,6 +1,7 @@
 package org.doubleaaexpress.models.dao.abstractfactory;
 
 import org.doubleaaexpress.models.Administrator;
+import org.doubleaaexpress.models.Buyer;
 import org.doubleaaexpress.models.Customer;
 import org.doubleaaexpress.models.OrderManager;
 
@@ -23,4 +24,6 @@ public abstract class AbstractFactoryDAO {
     public abstract GenericUserDAO<OrderManager> getOrderManagerDAO();
 
     public abstract GenericUserDAO<Customer> getCustomerDAO();
+
+    public abstract GenericUserDAO<Buyer> getBuyerDAO();
 }

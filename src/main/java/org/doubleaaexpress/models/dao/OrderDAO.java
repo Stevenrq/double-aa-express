@@ -1,6 +1,6 @@
 package org.doubleaaexpress.models.dao;
 
-import org.doubleaaexpress.models.Customer;
+import org.doubleaaexpress.models.Buyer;
 import org.doubleaaexpress.models.Order;
 import org.doubleaaexpress.models.Product;
 import org.doubleaaexpress.util.DBConnection;
@@ -16,15 +16,15 @@ public class OrderDAO {
 
     public void add(Order order) {
         PreparedStatement preparedStatement;
-        String sql = "INSERT INTO orders (order_id, date, customer, address, product, quantity, unit_price, " +
+        String sql = "INSERT INTO orders (order_id, date, buyer, address, product, quantity, unit_price, " +
                 "total_price, status) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setLong(1, order.getId());
             preparedStatement.setDate(2, Date.valueOf(order.getDate()));
-            preparedStatement.setObject(3, order.getCustomer().getFirstName() + " "
-                    + order.getCustomer().getLastName());
+            preparedStatement.setObject(3, order.getBuyer().getFirstName() + " "
+                    + order.getBuyer().getLastName());
             preparedStatement.setString(4, order.getAddress());
             preparedStatement.setObject(5, order.getProduct().getName());
             preparedStatement.setInt(6, order.getQuantity());
@@ -50,7 +50,7 @@ public class OrderDAO {
             if (resultSet.next()) {
                 order.setId(resultSet.getLong("order_id"));
                 order.setDate(resultSet.getDate("date").toLocalDate());
-                order.setCustomer((Customer) resultSet.getObject("customer"));
+                order.setBuyer((Buyer) resultSet.getObject("buyer"));
                 order.setAddress(resultSet.getString("address"));
                 order.setProduct((Product) resultSet.getObject("product"));
                 order.setQuantity(resultSet.getInt("quantity"));
@@ -67,13 +67,14 @@ public class OrderDAO {
 
     public void update(Order order) {
         PreparedStatement preparedStatement;
-        String sql = "UPDATE orders SET date = ?, customer = ?, address = ?, product = ?, quantity = ?, " +
+        String sql = "UPDATE orders SET date = ?, buyer = ?, address = ?, product = ?, quantity = ?, " +
                 "unit_price = ?, total_price = ?, status = ? WHERE order_id = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setDate(1, Date.valueOf(order.getDate()));
-            preparedStatement.setObject(2, order.getCustomer().getFirstName() + " " + order.getCustomer().getLastName());
+            preparedStatement.setObject(2,
+                    order.getBuyer().getFirstName() + " " + order.getBuyer().getLastName());
             preparedStatement.setString(3, order.getAddress());
             preparedStatement.setObject(4, order.getProduct().getName());
             preparedStatement.setInt(5, order.getQuantity());
@@ -113,7 +114,7 @@ public class OrderDAO {
                 Order order = new Order();
                 order.setId(resultSet.getLong("order_id"));
                 order.setDate(resultSet.getDate("date").toLocalDate());
-                order.setCustomer((Customer) resultSet.getObject("customer"));
+                order.setBuyer((Buyer) resultSet.getObject("customer"));
                 order.setAddress(resultSet.getString("address"));
                 order.setProduct((Product) resultSet.getObject("product"));
                 order.setQuantity(resultSet.getInt("quantity"));

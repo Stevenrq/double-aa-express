@@ -1,35 +1,36 @@
 package org.doubleaaexpress.controllers;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.doubleaaexpress.models.Customer;
+import javax.swing.JOptionPane;
+
+import org.doubleaaexpress.models.Buyer;
 import org.doubleaaexpress.models.Motorcycle;
-import org.doubleaaexpress.views.CustomerMainView;
+import org.doubleaaexpress.views.BuyerMainView;
 import org.doubleaaexpress.views.MainView;
 import org.doubleaaexpress.views.tables.RegisteredMotorcyclesTableView;
 
-import javax.swing.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class CustomerMainController {
+public class BuyerMainController {
 
-    private Customer customer;
+    private Buyer buyer;
     private Motorcycle motorcycle;
 
     private MainView mainView;
-    private CustomerMainView customerMainView;
+    private BuyerMainView buyerMainView;
     private RegisteredMotorcyclesTableView registeredMotorcyclesTableView;
 
-    public CustomerMainController(Customer customer, Motorcycle motorcycle, MainView mainView,
-            CustomerMainView customerMainView,
+    public BuyerMainController(Buyer buyer, Motorcycle motorcycle, MainView mainView,
+            BuyerMainView buyerMainView,
             RegisteredMotorcyclesTableView registeredMotorcyclesTableView) {
-        this.customer = customer;
+        this.buyer = buyer;
         this.motorcycle = motorcycle;
         this.mainView = mainView;
-        this.customerMainView = customerMainView;
+        this.buyerMainView = buyerMainView;
         this.registeredMotorcyclesTableView = registeredMotorcyclesTableView;
 
         this.motorcycle.populateMotorcycleTable(getRegisteredMotorcyclesTableView().gettRegisteredMotorcycles());

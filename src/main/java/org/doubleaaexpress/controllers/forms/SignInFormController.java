@@ -7,13 +7,14 @@ import lombok.Setter;
 import javax.swing.JOptionPane;
 
 import org.doubleaaexpress.models.Administrator;
+import org.doubleaaexpress.models.Buyer;
 import org.doubleaaexpress.models.Customer;
 import org.doubleaaexpress.models.OrderManager;
 import org.doubleaaexpress.models.dao.abstractfactory.AbstractFactoryDAO;
 import org.doubleaaexpress.models.dao.abstractfactory.ConcreteAbstractFactoryDAO;
 import org.doubleaaexpress.models.dao.abstractfactory.GenericUserDAO;
 import org.doubleaaexpress.views.AdministratorMainView;
-import org.doubleaaexpress.views.CustomerMainView;
+import org.doubleaaexpress.views.BuyerMainView;
 import org.doubleaaexpress.views.MainView;
 import org.doubleaaexpress.views.OrderManagerMainView;
 import org.doubleaaexpress.views.forms.OrderManagerFormView;
@@ -27,28 +28,31 @@ public class SignInFormController {
     private Administrator administrator;
     private OrderManager orderManager;
     private Customer customer;
+    private Buyer buyer;
 
     private MainView mainView;
     private SignInFormView sigInFormView;
     private AdministratorMainView administratorMainView;
     private OrderManagerMainView orderManagerMainView;
-    private CustomerMainView customerMainView;
+    private BuyerMainView buyerMainView;
     private OrderManagerFormView orderManagerFormView;
 
     public SignInFormController(Administrator administrator, OrderManager orderManager, Customer customer,
+            Buyer buyer,
             MainView mainView, SignInFormView sigInFormView, AdministratorMainView administratorMainView,
-            OrderManagerMainView orderManagerMainView, CustomerMainView customerMainView,
+            OrderManagerMainView orderManagerMainView, BuyerMainView buyerMainView,
             OrderManagerFormView orderManagerFormView) {
 
         this.administrator = administrator;
         this.orderManager = orderManager;
         this.customer = customer;
+        this.buyer = buyer;
 
         this.mainView = mainView;
         this.sigInFormView = sigInFormView;
         this.administratorMainView = administratorMainView;
         this.orderManagerMainView = orderManagerMainView;
-        this.customerMainView = customerMainView;
+        this.buyerMainView = buyerMainView;
         this.orderManagerFormView = orderManagerFormView;
     }
 
@@ -57,6 +61,7 @@ public class SignInFormController {
         GenericUserDAO<Administrator> administratorDAO = abstractFactoryDAO.getAdministratorDAO();
         GenericUserDAO<OrderManager> orderManagerDAO = abstractFactoryDAO.getOrderManagerDAO();
         GenericUserDAO<Customer> customerDAO = abstractFactoryDAO.getCustomerDAO();
+        GenericUserDAO<Buyer> buyerDAO = abstractFactoryDAO.getBuyerDAO();
 
         String email = getSigInFormView().getTfEmail().getText();
         String password = new String(getSigInFormView().getTfPassword().getPassword());
@@ -75,15 +80,20 @@ public class SignInFormController {
             getSigInFormView().getTfEmail().requestFocus();
             getOrderManagerMainView().setVisible(true);
 
-        } else if (customerDAO.get(email, password)) {
+        } else if (buyerDAO.get(email, password)) {
             // the logged in user is assigned
-            customer = customerDAO.getUser(email, password);
+            buyer = buyerDAO.getUser(email, password);
 
             getSigInFormView().setVisible(false);
             getSigInFormView().getTfEmail().setText("");
             getSigInFormView().getTfPassword().setText("");
             getSigInFormView().getTfEmail().requestFocus();
-            getCustomerMainView().setVisible(true);
+            getBuyerMainView().setVisible(true);
+        } else if (customerDAO.get(email, password)) {
+            getSigInFormView().setVisible(false);
+            getSigInFormView().getTfEmail().setText("");
+            getSigInFormView().getTfPassword().setText("");
+            getSigInFormView().getTfEmail().requestFocus();
         } else if (email.isBlank() || password.isBlank()) {
             JOptionPane.showMessageDialog(null, "You must fill out all fields");
         } else {

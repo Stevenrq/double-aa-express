@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import org.doubleaaexpress.controllers.forms.SignInFormController;
-import org.doubleaaexpress.models.Customer;
+import org.doubleaaexpress.models.Buyer;
 import org.doubleaaexpress.models.Motorcycle;
 import org.doubleaaexpress.models.Order;
 import org.doubleaaexpress.models.dao.MotorcycleDAO;
@@ -24,7 +24,7 @@ import lombok.Setter;
 @Setter
 public class OrderController {
 
-    private Customer customer;
+    private Buyer buyer;
     private Motorcycle motorcycle;
 
     private RegisteredMotorcyclesTableView registeredMotorcyclesTableView;
@@ -32,10 +32,10 @@ public class OrderController {
 
     private SignInFormController signInFormController;
 
-    public OrderController(Customer customer, Motorcycle motorcycle,
+    public OrderController(Buyer buyer, Motorcycle motorcycle,
             RegisteredMotorcyclesTableView registeredMotorcyclesTableView,
             RegisteredOrdersTableView registeredOrdersTableView) {
-        this.customer = customer;
+        this.buyer = buyer;
         this.motorcycle = motorcycle;
         this.registeredMotorcyclesTableView = registeredMotorcyclesTableView;
         this.registeredOrdersTableView = registeredOrdersTableView;
@@ -67,13 +67,13 @@ public class OrderController {
         OrderDAO orderDAO = new OrderDAO();
 
         if (getRegisteredMotorcyclesTableView().gettRegisteredMotorcycles().getSelectedRow() != -1) {
-            if (getSignInFormController().getCustomer() != null) {
-                customer = getSignInFormController().getCustomer();
+            if (getSignInFormController().getBuyer() != null) {
+                buyer = getSignInFormController().getBuyer();
 
                 long orderId = (long) (Math.random() * 1000);
                 LocalDate orderDate = LocalDate.now();
 
-                String orderAddress = getCustomer().getAddress();
+                String orderAddress = getBuyer().getAddress();
                 int selectedRow = getRegisteredMotorcyclesTableView().gettRegisteredMotorcycles().getSelectedRow();
                 motorcycle = getSelectedMotorcycle(selectedRow);
 
@@ -98,6 +98,7 @@ public class OrderController {
                 int quantityToBuy = Integer
                         .parseInt(JOptionPane
                                 .showInputDialog("Enter the quantity of motorcycles you want to purchase: "));
+
                 // conditions necessary to make the purchase
                 if (quantityToBuy > quantity) {
                     JOptionPane.showMessageDialog(null, "There are not enough motorcycles in stock");
@@ -125,7 +126,7 @@ public class OrderController {
                 Order order = new Order(
                         orderId,
                         orderDate,
-                        customer,
+                        buyer,
                         orderAddress,
                         new Motorcycle(id, name, price, quantity, model, year, plateNumber, status),
                         quantityToBuy,

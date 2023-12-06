@@ -10,12 +10,12 @@ import javax.swing.JTable;
  *
  * @author steve
  */
-public class RegisteredOrdersTableView extends javax.swing.JFrame {
+public class RegisteredBuyersTableView extends javax.swing.JFrame {
 
     /**
-     * Creates new form RegisteredOrdersTableView
+     * Creates new form RegisteredBuyersTableView
      */
-    public RegisteredOrdersTableView() {
+    public RegisteredBuyersTableView() {
         initComponents();
     }
 
@@ -29,32 +29,30 @@ public class RegisteredOrdersTableView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tRegisteredOrders = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        tRegisteredBuyers = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        tRegisteredOrders.setModel(new javax.swing.table.DefaultTableModel(
+        tRegisteredBuyers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Date", "Buyer", "Address", "Product", "Quantity", "Unit Price", "Total Price", "Status"
+                "Id", "First Name", "Last Name", "Phone Number", "Address", "Birth Date", "Email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tRegisteredOrders);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel1.setText("Registered Orders");
+        jScrollPane1.setViewportView(tRegisteredBuyers);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,20 +60,14 @@ public class RegisteredOrdersTableView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(351, 351, 351)
-                .addComponent(jLabel1)
-                .addContainerGap(359, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -100,36 +92,34 @@ public class RegisteredOrdersTableView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisteredOrdersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredBuyersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisteredOrdersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredBuyersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisteredOrdersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredBuyersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegisteredOrdersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegisteredBuyersTableView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegisteredOrdersTableView().setVisible(true);
+                new RegisteredBuyersTableView().setVisible(true);
             }
         });
     }
 
-    public JTable gettRegisteredOrders() {
-        return tRegisteredOrders;
+    public JTable gettRegisteredBuyers() {
+        return tRegisteredBuyers;
     }
 
-    public void settRegisteredOrders(JTable tRegisteredOrders) {
-        this.tRegisteredOrders = tRegisteredOrders;
+    public void settRegisteredBuyers(JTable tRegisteredBuyers) {
+        this.tRegisteredBuyers = tRegisteredBuyers;
     }
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tRegisteredOrders;
+    private javax.swing.JTable tRegisteredBuyers;
     // End of variables declaration//GEN-END:variables
 }
