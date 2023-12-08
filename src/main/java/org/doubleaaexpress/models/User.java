@@ -1,7 +1,12 @@
 package org.doubleaaexpress.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class User extends Person {
 
     private String email;
@@ -15,22 +20,6 @@ public class User extends Person {
             String email, String password) {
         super(id, firstName, lastName, phoneNumber, address, birthDate);
         this.email = email;
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
     }
 }

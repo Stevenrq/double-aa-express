@@ -83,7 +83,7 @@ public class SignInFormController {
         } else if (buyerDAO.get(email, password)) {
             // the logged in user is assigned
             buyer = buyerDAO.getUser(email, password);
-
+            
             getSigInFormView().setVisible(false);
             getSigInFormView().getTfEmail().setText("");
             getSigInFormView().getTfPassword().setText("");

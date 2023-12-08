@@ -7,6 +7,7 @@ import org.doubleaaexpress.models.Administrator;
 import org.doubleaaexpress.models.Buyer;
 import org.doubleaaexpress.models.Customer;
 import org.doubleaaexpress.models.Motorcycle;
+import org.doubleaaexpress.models.Order;
 import org.doubleaaexpress.models.OrderManager;
 import org.doubleaaexpress.views.AdministratorMainView;
 import org.doubleaaexpress.views.MainView;
@@ -16,6 +17,7 @@ import org.doubleaaexpress.views.tables.RegisteredBuyersTableView;
 import org.doubleaaexpress.views.tables.RegisteredCustomersTableView;
 import org.doubleaaexpress.views.tables.RegisteredMotorcyclesTableView;
 import org.doubleaaexpress.views.tables.RegisteredOrderManagersTableView;
+import org.doubleaaexpress.views.tables.RegisteredOrdersTableView;
 
 import javax.swing.*;
 import java.util.Objects;
@@ -30,6 +32,7 @@ public class AdministratorMainController {
     private Customer customer;
     private Motorcycle motorcycle;
     private Buyer buyer;
+    private Order order;
 
     private MainView mainView;
     private AdministratorMainView administratorMainView;
@@ -39,21 +42,23 @@ public class AdministratorMainController {
     private RegisteredCustomersTableView registeredCustomersTableView;
     private RegisteredMotorcyclesTableView registeredMotorcyclesTableView;
     private RegisteredBuyersTableView registeredBuyersTableView;
+    private RegisteredOrdersTableView registeredOrdersTableView;
 
     public AdministratorMainController(Administrator administrator, OrderManager orderManager, Customer customer,
-            Motorcycle motorcycle, Buyer buyer, MainView mainView,
+            Motorcycle motorcycle, Buyer buyer, Order order, MainView mainView,
             AdministratorMainView administratorMainView, RegisteredUsersView registeredUsersView,
             RegisteredAdministratorsTableView registeredAdministratorsTableView,
             RegisteredOrderManagersTableView registeredOrderManagersTableView,
             RegisteredCustomersTableView registeredCustomersTableView,
             RegisteredMotorcyclesTableView registeredMotorcyclesTableView,
-            RegisteredBuyersTableView registeredBuyersTableView) {
+            RegisteredBuyersTableView registeredBuyersTableView, RegisteredOrdersTableView registeredOrdersTableView) {
 
         this.administrator = administrator;
         this.orderManager = orderManager;
         this.customer = customer;
         this.motorcycle = motorcycle;
         this.buyer = buyer;
+        this.order = order;
         this.mainView = mainView;
         this.administratorMainView = administratorMainView;
         this.registeredUsersView = registeredUsersView;
@@ -62,6 +67,7 @@ public class AdministratorMainController {
         this.registeredCustomersTableView = registeredCustomersTableView;
         this.registeredMotorcyclesTableView = registeredMotorcyclesTableView;
         this.registeredBuyersTableView = registeredBuyersTableView;
+        this.registeredOrdersTableView = registeredOrdersTableView;
 
         // populates the table when starting the application
         this.administrator
@@ -71,6 +77,7 @@ public class AdministratorMainController {
         this.customer.populateCustomerTable(getRegisteredCustomersTableView().gettRegisteredCustomers());
         this.motorcycle.populateMotorcycleTable(getRegisteredMotorcyclesTableView().gettRegisteredMotorcycles());
         this.buyer.populateBuyerTable(getRegisteredBuyersTableView().gettRegisteredBuyers());
+        this.order.populateOrderTable(getRegisteredOrdersTableView().gettRegisteredOrders());
     }
 
     public void showRegisteredUsersTables() {
@@ -108,6 +115,12 @@ public class AdministratorMainController {
                     JOptionPane.showMessageDialog(null, "There are no registered buyers");
                 else
                     getRegisteredBuyersTableView().setVisible(true);
+                break;
+            case "Orders":
+                if (getRegisteredOrdersTableView().gettRegisteredOrders().getRowCount() == 0)
+                    JOptionPane.showMessageDialog(null, "There are no registered orders");
+                else
+                    getRegisteredOrdersTableView().setVisible(true);
                 break;
             default:
                 // default option

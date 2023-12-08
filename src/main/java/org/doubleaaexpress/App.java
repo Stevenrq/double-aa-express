@@ -32,6 +32,7 @@ public class App {
                 Mechanic mechanic = new Mechanic();
                 Seller seller = new Seller();
                 Motorcycle motorcycle = new Motorcycle();
+                Order order = new Order();
 
                 // views
                 MainView mainView = new MainView();
@@ -70,11 +71,11 @@ public class App {
                                 orderManagerFormView);
 
                 AdministratorMainController administratorMainController = new AdministratorMainController(administrator,
-                                orderManager, customer, motorcycle, buyer, mainView, administratorMainView,
+                                orderManager, customer, motorcycle, buyer, order, mainView, administratorMainView,
                                 registeredUsersView,
                                 registeredAdministratorsTableView, registeredOrderManagersTableView,
                                 registeredCustomersTableView,
-                                registeredMotorcyclesTableView, registeredBuyersTableView);
+                                registeredMotorcyclesTableView, registeredBuyersTableView, registeredOrdersTableView);
 
                 BuyerMainController buyerMainController = new BuyerMainController(buyer, motorcycle,
                                 mainView,
@@ -84,7 +85,7 @@ public class App {
                                 motorcycle, administratorMainView, motorcycleFormView, registeredMotorcyclesTableView);
 
                 OrderController orderController = new OrderController(buyer, motorcycle,
-                                registeredMotorcyclesTableView, registeredOrdersTableView);
+                                registeredMotorcyclesTableView, registeredOrdersTableView, signInController);
 
                 BuyerFormController buyerFormController = new BuyerFormController(buyer, mainView, buyerFormView,
                                 registeredBuyersTableView);

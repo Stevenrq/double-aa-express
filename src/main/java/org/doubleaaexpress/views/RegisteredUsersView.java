@@ -38,7 +38,7 @@ public class RegisteredUsersView extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registered Users", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(0, 153, 153))); // NOI18N
 
-        cbRegisteredUsers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Administrators", "Order Managers", "Customers", "Motorcycles", "Buyers", "Mechanics", "Sellers" }));
+        cbRegisteredUsers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "Administrators", "Order Managers", "Customers", "Motorcycles", "Buyers", "Mechanics", "Sellers", "Orders" }));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("See registered users:");

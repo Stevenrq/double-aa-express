@@ -18,7 +18,7 @@ public class Order {
 
     private Long id;
     private LocalDate date;
-    private Buyer buyer;
+    private String buyerName;
     private String address;
     private Product product;
     private Integer quantity;
@@ -52,9 +52,9 @@ public class Order {
             model.addRow(new Object[] {});
             model.setValueAt(order.getId(), i, 0);
             model.setValueAt(order.getDate(), i, 1);
-            model.setValueAt(order.getBuyer().getFirstName() + " " + order.getBuyer().getLastName(), i, 2);
+            model.setValueAt(order.getBuyerName(), i, 2);
             model.setValueAt(order.getAddress(), i, 3);
-            model.setValueAt(order.getProduct().getName(), i, 4);
+            model.setValueAt(order.getProduct(), i, 4);
             model.setValueAt(order.getQuantity(), i, 5);
             model.setValueAt(order.getUnitPrice(), i, 6);
             model.setValueAt(order.getTotalPrice(), i, 7);

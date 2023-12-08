@@ -1,6 +1,6 @@
 package org.doubleaaexpress.models.dao;
 
-import org.doubleaaexpress.models.Buyer;
+import org.doubleaaexpress.models.Motorcycle;
 import org.doubleaaexpress.models.Order;
 import org.doubleaaexpress.models.Product;
 import org.doubleaaexpress.util.DBConnection;
@@ -15,23 +15,22 @@ public class OrderDAO {
     private final Connection connection = DBConnection.getInstance().getConnection();
 
     public void add(Order order) {
-        PreparedStatement preparedStatement;
+        PreparedStatement ps;
         String sql = "INSERT INTO orders (order_id, date, buyer, address, product, quantity, unit_price, " +
                 "total_price, status) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, order.getId());
-            preparedStatement.setDate(2, Date.valueOf(order.getDate()));
-            preparedStatement.setObject(3, order.getBuyer().getFirstName() + " "
-                    + order.getBuyer().getLastName());
-            preparedStatement.setString(4, order.getAddress());
-            preparedStatement.setObject(5, order.getProduct().getName());
-            preparedStatement.setInt(6, order.getQuantity());
-            preparedStatement.setDouble(7, order.getUnitPrice());
-            preparedStatement.setDouble(8, order.getTotalPrice());
-            preparedStatement.setString(9, order.getStatus());
-            preparedStatement.execute();
+            ps = connection.prepareStatement(sql);
+            ps.setLong(1, order.getId());
+            ps.setDate(2, Date.valueOf(order.getDate()));
+            ps.setString(3, order.getBuyerName());
+            ps.setString(4, order.getAddress());
+            ps.setString(5, order.getProduct().getName());
+            ps.setInt(6, order.getQuantity());
+            ps.setDouble(7, order.getUnitPrice());
+            ps.setDouble(8, order.getTotalPrice());
+            ps.setString(9, order.getStatus());
+            ps.execute();
         } catch (SQLException e) {
             System.out.println("Error adding order: " + e.getMessage());
         }
@@ -39,24 +38,24 @@ public class OrderDAO {
 
     public Order getById(Long id) {
         String sql = "SELECT * FROM orders WHERE order_id = ?";
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        PreparedStatement ps;
+        ResultSet rs;
         Order order = new Order();
 
         try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
-            resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                order.setId(resultSet.getLong("order_id"));
-                order.setDate(resultSet.getDate("date").toLocalDate());
-                order.setBuyer((Buyer) resultSet.getObject("buyer"));
-                order.setAddress(resultSet.getString("address"));
-                order.setProduct((Product) resultSet.getObject("product"));
-                order.setQuantity(resultSet.getInt("quantity"));
-                order.setUnitPrice(resultSet.getDouble("unit_price"));
-                order.setTotalPrice(resultSet.getDouble("total_price"));
-                order.setStatus(resultSet.getString("status"));
+            ps = connection.prepareStatement(sql);
+            ps.setLong(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                order.setId(rs.getLong("order_id"));
+                order.setDate(rs.getDate("date").toLocalDate());
+                order.setBuyerName(rs.getString("buyer"));
+                order.setAddress(rs.getString("address"));
+                order.setProduct((Product) rs.getObject("product"));
+                order.setQuantity(rs.getInt("quantity"));
+                order.setUnitPrice(rs.getDouble("unit_price"));
+                order.setTotalPrice(rs.getDouble("total_price"));
+                order.setStatus(rs.getString("status"));
             } else
                 JOptionPane.showMessageDialog(null, "The order is not registered");
         } catch (SQLException e) {
@@ -66,61 +65,63 @@ public class OrderDAO {
     }
 
     public void update(Order order) {
-        PreparedStatement preparedStatement;
+        PreparedStatement ps;
         String sql = "UPDATE orders SET date = ?, buyer = ?, address = ?, product = ?, quantity = ?, " +
                 "unit_price = ?, total_price = ?, status = ? WHERE order_id = ?";
 
         try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setDate(1, Date.valueOf(order.getDate()));
-            preparedStatement.setObject(2,
-                    order.getBuyer().getFirstName() + " " + order.getBuyer().getLastName());
-            preparedStatement.setString(3, order.getAddress());
-            preparedStatement.setObject(4, order.getProduct().getName());
-            preparedStatement.setInt(5, order.getQuantity());
-            preparedStatement.setDouble(6, order.getUnitPrice());
-            preparedStatement.setDouble(7, order.getTotalPrice());
-            preparedStatement.setString(8, order.getStatus());
-            preparedStatement.setLong(9, order.getId());
-            preparedStatement.executeUpdate();
+            ps = connection.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(order.getDate()));
+            ps.setString(2, order.getBuyerName());
+            ps.setString(3, order.getAddress());
+            ps.setObject(4, order.getProduct().getName());
+            ps.setInt(5, order.getQuantity());
+            ps.setDouble(6, order.getUnitPrice());
+            ps.setDouble(7, order.getTotalPrice());
+            ps.setString(8, order.getStatus());
+            ps.setLong(9, order.getId());
+            ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating order: " + e.getMessage());
         }
     }
 
     public void delete(Long id) {
-        PreparedStatement preparedStatement;
+        PreparedStatement ps;
         String sql = "DELETE FROM orders WHERE order_id = ?";
 
         try {
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setLong(1, id);
-            preparedStatement.execute();
+            ps = connection.prepareStatement(sql);
+            ps.setLong(1, id);
+            ps.execute();
         } catch (SQLException e) {
             System.out.println("Error deleting order: " + e.getMessage());
         }
     }
 
     public List<Order> getAll() {
-        PreparedStatement preparedStatement;
+        PreparedStatement ps;
         String sql = "SELECT * FROM orders";
-        ResultSet resultSet;
+        ResultSet rs;
         List<Order> orders = new ArrayList<>();
 
         try {
-            preparedStatement = connection.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+            ps = connection.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
                 Order order = new Order();
-                order.setId(resultSet.getLong("order_id"));
-                order.setDate(resultSet.getDate("date").toLocalDate());
-                order.setBuyer((Buyer) resultSet.getObject("customer"));
-                order.setAddress(resultSet.getString("address"));
-                order.setProduct((Product) resultSet.getObject("product"));
-                order.setQuantity(resultSet.getInt("quantity"));
-                order.setUnitPrice(resultSet.getDouble("unit_price"));
-                order.setTotalPrice(resultSet.getDouble("total_price"));
-                order.setStatus(resultSet.getString("status"));
+                Motorcycle motorcycle = new Motorcycle();
+
+                order.setId(rs.getLong("order_id"));
+                order.setDate(rs.getDate("date").toLocalDate());
+                order.setBuyerName(rs.getString("buyer"));
+                order.setAddress(rs.getString("address"));
+                motorcycle.setName(rs.getString("product"));
+                order.setProduct(motorcycle);
+                order.setQuantity(rs.getInt("quantity"));
+                order.setUnitPrice(rs.getDouble("unit_price"));
+                order.setTotalPrice(rs.getDouble("total_price"));
+                order.setStatus(rs.getString("status"));
                 orders.add(order);
             }
         } catch (SQLException e) {

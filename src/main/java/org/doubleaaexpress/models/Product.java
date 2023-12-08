@@ -15,4 +15,9 @@ public class Product {
     private String name;
     private Double price;
     private Integer quantity;
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
